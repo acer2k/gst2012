@@ -136,6 +136,10 @@ public class AddressBookFunctionalTest {
 		// Then the returned entry is expected to match the added entry
 		assertEquals("getEntry's returned entry didn't match the added entry",
 				bob, getEntryBob);
+		assertEquals("actual entry's gender didn't match the expected",
+				bob.isMale(), getEntryBob.isMale());
+		assertEquals("actual entry's contact information didn't match the expected",
+				bob.getContactInformation(), getEntryBob.getContactInformation());
 
 		// When retrieving another entry
 		Entry getEntryAlice = addressBook.getEntry("Alice", "Smith");
