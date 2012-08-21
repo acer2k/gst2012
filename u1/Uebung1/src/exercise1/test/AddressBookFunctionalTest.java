@@ -1,7 +1,7 @@
 /*
  * Example code used in exercises for lecture "Grundlagen des Software-Testens"
- * Created and given by Ina Schieferdecker and Edzard Høfig
- * Freie Universitøt Berlin, SS 2011
+ * Created and given by Ina Schieferdecker and Edzard H√∂fig
+ * Freie Universit√§t Berlin, SS 2011
  */
 package exercise1.test;
 
@@ -28,11 +28,10 @@ import exercise1.addressbook.model.SizeLimitReachedException;
  * 8
  *
  * Bitte Gruppenmitglieder eintragen:
- * @author Edzard Høfig
- * @author Sascha
- * @author Johannes
- * @author Felix
- * @author Irena
+ * @author Sascha Gennrich
+ * @author Johannes Klick
+ * @author Felix-Johannes Jendrusch
+ * @author Irena Kpogbezan
  */
 public class AddressBookFunctionalTest {
 
@@ -42,7 +41,7 @@ public class AddressBookFunctionalTest {
 	/*
 	 * Aufgabe 3a)
 	 * Schreiben Sie eine Methode zum Aufsetzen der Testumgebung ("Fixture").
-	 * Diese Methode soll automatisch vor jedem einzelnen JUnit Testfall ausgeføhrt werden.
+	 * Diese Methode soll automatisch vor jedem einzelnen JUnit Testfall ausgef≈∏hrt werden.
 	 * Innerhalb der Methode soll mindestens ein neues AddressBook Objekt angelegt und im Attribut "addressBook" gepeichert werden.
 	 */
 	@Before
@@ -53,71 +52,87 @@ public class AddressBookFunctionalTest {
 
 	/*
 	 * Aufgabe 3b)
-	 * Schreiben Sie einen JUnit Testfall zum øberprøfen der Funktionalitøt der addEntry() Methode.
+	 * Schreiben Sie einen JUnit Testfall zum ‚Ä†berpr≈∏fen der Funktionalit≈†t der addEntry() Methode.
 	 */
 	@Test
-	public void addEntrySuccess() throws SizeLimitReachedException {
-		// Given
-		Entry entryBob = new Entry("Bob", "Foo", Gender.Male, new EmailAddress("foo@example.com"));
-		int sizeBefor = addressBook.getEntries().size();
+	public void addEntry() throws SizeLimitReachedException {
+		// Given an entry
+		Entry bob = new Entry("Bob", "Smith", Gender.Male,
+				new EmailAddress("bob@example.com"));
+		int size = addressBook.getEntries().size();
 
-		// When
-		boolean addEntrySuccess = addressBook.addEntry(entryBob);
+		// When the entry is added
+		boolean added = addressBook.addEntry(bob);
 
-		// Then
-		assertTrue("adding successed: ", addEntrySuccess);
-		assertEquals("Size of addressBook: " ,sizeBefor + 1 , addressBook.getEntries().size());
+		// Then addEntry is expected to return true and the size is expected to
+		// increase by 1
+		assertTrue("addEntry failed", added);
+		assertEquals("addEntry succeeded, but size didn't increase (by 1)",
+				size + 1, addressBook.getEntries().size());
 
 	}
 
 	@Test
-	public void addEntryDuplicateEntries() throws SizeLimitReachedException {
-		// Given an addressbook, which has alice already stored
-		Entry entryAlice = new Entry("Alice", "Foob", Gender.Female, new EmailAddress("foo@example.com"));
-		addressBook.addEntry(entryAlice);
+	public void addEntryDuplicate() throws SizeLimitReachedException {
+		// Given an AddressBook which already has a certain entry
+		Entry bob = new Entry("Bob", "Smith", Gender.Male,
+				new EmailAddress("bob@example.com"));
 
-		// When alice is added again
-		boolean addEntrySuccess = addressBook.addEntry(entryAlice);
-		assertFalse("entry was added: ", addEntrySuccess);
+		boolean added = addressBook.addEntry(bob);
+
+		assertTrue("addEntry failed", added);
+
+		// When this entry is added again
+		boolean addedAgain = addressBook.addEntry(bob);
+
+		// Then addEntry is expected to return false
+		assertFalse("addEntry succeeded although the entry was already stored",
+				addedAgain);
 	}
 
 	@Test(expected=SizeLimitReachedException.class)
-	public void addressBookIsFull() throws SizeLimitReachedException{
-		// Given full addressbook with different data
+	public void addEntrySizeLimit() throws SizeLimitReachedException {
+		// Given a full AddressBook
 		for (int i = 0; i < AddressBook.sizeLimit; i++) {
-			addressBook.addEntry(new Entry("Foo" + i , "Bar" + i, Gender.Male, new EmailAddress(""+i)));
+			addressBook.addEntry(new Entry("Bob-" + i , "Smith" + i, Gender.Male,
+					new EmailAddress("bob-" + i + "@example.com")));
 		}
 
-		// When one more entry is thrown
-		addressBook.addEntry(new Entry());
+		// When one additional entry is to be added
+		addressBook.addEntry(new Entry("Alice", "Smith", Gender.Female,
+				new EmailAddress("alice@example.com")));
 
-		// Then exception is expected
-		fail("Expected an Exception");
+		// Then an SizeLimitReachedException is expected
+		fail("Expected an SizeLimitReachedException");
 	}
 
 
 	/*
 	 * Aufgabe 3c)
-	 * Schreiben Sie einen JUnit Testfall zum øberprøfen der Funktionalitøt der getEntry() Methode.
+	 * Schreiben Sie einen JUnit Testfall zum ‚Ä†berpr≈∏fen der Funktionalit≈†t der getEntry() Methode.
 	 */
 	@Test
-	public void getEntryTest() throws SizeLimitReachedException {
-		// given addressbook with one entry
-		Entry alice = new Entry("Alice", "Example", null, null);
-		addressBook.addEntry(alice);
+	public void getEntry() throws SizeLimitReachedException {
+		// Given an AddressBook with one entry
+		Entry bob = new Entry("Bob", "Smith", Gender.Male,
+				new EmailAddress("bob@example.com"));
 
-		// when retrieving Alice
-		Entry resultAlice = addressBook.getEntry("Alice", "Example");
+		boolean added = addressBook.addEntry(bob);
 
-		// Then
-		assertEquals("foo is foo: " , alice, resultAlice);
+		assertTrue("addEntry failed", added);
 
-		//When retrieving Bob
-		Entry resultBob = addressBook.getEntry("Bob", "Example");
+		// When retrieving this entry
+		Entry getEntryBob = addressBook.getEntry("Bob", "Smith");
 
-		//Then
-		assertNull("Bob is not in the addressbook", resultBob);
+		// Then the returned entry is expected to match the added entry
+		assertEquals("getEntry's returned entry didn't match the added entry",
+				bob, getEntryBob);
+
+		// When retrieving another entry
+		Entry getEntryAlice = addressBook.getEntry("Alice", "Smith");
+
+		// Then null is expected to be returned
+		assertNull("getEntry returned something non-null for a non-existing entry",
+				getEntryAlice);
 	}
-
-
 }
