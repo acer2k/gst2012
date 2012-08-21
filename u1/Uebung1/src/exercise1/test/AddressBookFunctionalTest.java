@@ -106,6 +106,15 @@ public class AddressBookFunctionalTest {
 		fail("Expected an SizeLimitReachedException");
 	}
 
+	@Test(expected=NullPointerException.class)
+	public void addEntryNull() throws SizeLimitReachedException {
+		// When trying to add null
+		addressBook.addEntry(null);
+
+		// Then an NullPointerException is expected
+		fail("Expected an NullPointerException because getEntry doesn't support " +
+				 "sets that permit null elements");
+	}
 
 	/*
 	 * Aufgabe 3c)
