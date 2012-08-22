@@ -12,16 +12,16 @@ import exercise2.addressbook.view.AddressBookView;
 /**
  * Uebung 2 - Komponenten und Integrationstest
  * Mock-Up für den AddressBookView
- * 
+ *
  * Bitte Nummer der Gruppe eintragen:
  * 0
- * 
+ *
  * Bitte Gruppenmitglieder eintragen:
  * @author Edzard Hoefig
  * @author ...
  */
 public class AddressBookViewMockUp implements AddressBookView {
+  public void create(AddressBookAccess model, AddressBookController controller) {}
 
-	// TODO: Mock-Up erstellen
-	
+  public void refresh() {}
 }
