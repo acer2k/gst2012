@@ -8,11 +8,17 @@ package exercise2.test;
 import java.io.File;
 
 import org.junit.Before;
+import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
 
 import exercise2.addressbook.controller.AddressBookController;
 import exercise2.addressbook.controller.AddressBookControllerImpl;
+import exercise2.addressbook.controller.ParameterException;
 import exercise2.addressbook.model.AddressBookModel;
 import exercise2.addressbook.model.AddressBookModelImpl;
+import exercise2.addressbook.model.SizeLimitReachedException;
+import exercise2.addressbook.view.AddressBookView;
 
 /**
  * Uebung 2 - Komponenten und Integrationstest
@@ -41,7 +47,7 @@ public class ControllerAddressBookIntegrationTest {
 	AddressBookModel model;
 
 	// View component for the test
-	AddressBookViewMockUp view;
+	AddressBookView view;
 
 	// Controller component for the test
 	AddressBookController controller;
@@ -53,9 +59,26 @@ public class ControllerAddressBookIntegrationTest {
 	public void setUp() throws Exception {
 		// Instantiate and wire components
 		this.model = new AddressBookModelImpl(addressBookFile);
-		this.view = new AddressBookViewMockUp();
+		this.view = mock(AddressBookView.class);
 		this.controller = new AddressBookControllerImpl(model, view);
 	}
 
-	// TODO: Hier die Testfälle für den Integrationstest hinschreiben
+	/**
+	 * @see AddressBookControllerTest
+	 */
+	@Test
+	public void add() throws ParameterException, SizeLimitReachedException {
+		// Like AddressBookControllerTest's basic add test with some additional
+		// asserts on the model?
+	}
+
+	@Test
+	public void remove() {
+		// Entries are ordered by surname and firstname (ascending).
+	}
+
+	@Test
+	public void erase() {
+		// This will fail because erase's while condition is wrong.
+	}
 }

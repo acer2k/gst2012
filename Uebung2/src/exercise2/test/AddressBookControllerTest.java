@@ -68,8 +68,7 @@ public class AddressBookControllerTest {
 	}
 
 	@Test
-	public void add() throws ParameterException,
-			SizeLimitReachedException {
+	public void add() throws ParameterException, SizeLimitReachedException {
 		this.controller.add("John", "Doe", "M", "123456789", null);
 
 		ArgumentCaptor<Entry> argument = ArgumentCaptor.forClass(Entry.class);
