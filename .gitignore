@@ -1,1 +1,12 @@
-/u1/Uebung1/bin/
+#eclipse stuff
+.classpath
+.project
+.settings
+
+# build dir
+bin/
+
+.gitignore
+
+# vim stuff
+*.swp
