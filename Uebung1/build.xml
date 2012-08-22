@@ -9,7 +9,7 @@
 
 	<target name="compile">
 		<mkdir dir="${bin.dir}"/>
-		<javac srcdir="${src.dir}" destdir="${bin.dir}" classpathref="classpath"/>
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" classpathref="classpath" includeantruntime="false"/>
 	</target>
 
 	<target name="clean">
