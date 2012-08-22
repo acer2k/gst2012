@@ -18,7 +18,6 @@ import exercise1.addressbook.model.AddressBook;
 import exercise1.addressbook.model.EmailAddress;
 import exercise1.addressbook.model.Entry;
 import exercise1.addressbook.model.Gender;
-import exercise1.addressbook.model.PhoneNumber;
 import exercise1.addressbook.model.SizeLimitReachedException;
 
 /**
@@ -148,4 +147,58 @@ public class AddressBookFunctionalTest {
 		assertNull("getEntry returned something non-null for a non-existing entry",
 				getEntryAlice);
 	}
+	
+	/**
+	 * Dieser Test prüft eher die aktuelle Implementierung als 
+	 * die Spezifikation. Der Test ist so geschrieben, dass er
+	 * erfolgreich durchläuft. Wir glauben nicht, dass das das Verhalten
+	 * widerspiegelt, das ein Addressbuch haben sollte.
+	 * @throws SizeLimitReachedException 
+	 * 
+	 */
+	@Test
+	public void addEntryWithoutAnyInformation() 
+			throws SizeLimitReachedException {
+		// Given an entry without information
+		Entry nullEntry = new Entry(null, null, null, null);
+		
+		// When adding nullEntry to addressbook
+		boolean added = addressBook.addEntry(nullEntry);
+		
+		// Then everything should be fine
+		assertTrue(added);
+		
+		// When retrieving
+		Entry getEntry = addressBook.getEntry(null, null);
+		
+		// Then
+		assertEquals(nullEntry, getEntry);
+	}
+	
+	/**
+	 * In der Implementierung werden nur Vor- und Nachname zur Überprüfung
+	 * ob ein Eintrag schon im Adressbuch vorhanden ist.
+	 * Obwohl die beiden Jamie Does definitiv unterschiedliche Personen sind.
+	 * In diesem Adressbuch kann zu einer Person auch nicht Telfonnummer
+	 * und Emailadresse gleichzeitig gespeichert werden.
+	 * @throws SizeLimitReachedException
+	 */
+	@Test
+	public void addEntryWithDifferentGender() 
+			throws SizeLimitReachedException {
+		// Given an entry without information
+		Entry maleEntry = new Entry("Jamie", "Doe", Gender.Male, null);
+		Entry femaleEntry = new Entry("Jamie", "Doe", Gender.Female, null);
+		
+		// When adding both to addressbook
+		boolean maleAdded = addressBook.addEntry(maleEntry);
+		boolean femaleAdded = addressBook.addEntry(femaleEntry);
+		
+		// Then man should be added and female not.
+		// The specification does not say when entries are
+		// considered to be equal.
+		assertTrue("adding maleEntry was not successful", maleAdded);
+		assertFalse("adding femaleEntry was successful but should not", femaleAdded);
+	}
+
 }
