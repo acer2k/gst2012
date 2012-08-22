@@ -17,10 +17,10 @@ import exercise2.addressbook.model.AddressBookModelImpl;
 /**
  * Uebung 2 - Komponenten und Integrationstest
  * Integration Test für Addressbook und Controller.
- * 
+ *
  * Bitte Nummer der Gruppe eintragen:
  * 0
- * 
+ *
  * Bitte Gruppenmitglieder eintragen:
  * @author Edzard Hoefig
  * @author ...
@@ -29,23 +29,23 @@ public class ControllerAddressBookIntegrationTest {
 
 	// Location of the address book file
 	private static final File addressBookFile = new File("contacts.xml");
-		
+
 	/*
 	 *  Aufgabe 4
 	 *  Programmieren Sie einen Integrationstest für AddressBookModel und AddressBookController.
 	 *  Testen Sie ob die Methoden des exercise2.addressbook.controller.AddressBookController Interface zu den erwarteten Resultate im Addressbuch führen.
-	 *  Testen Sie intensiv und schreiben Sie MINDESTENS einen Testfall pro Methode des interfaces. Es sind Fehler zu finden.  
+	 *  Testen Sie intensiv und schreiben Sie MINDESTENS einen Testfall pro Methode des interfaces. Es sind Fehler zu finden.
 	 */
-	
+
 	// Model component for the test
 	AddressBookModel model;
-	
+
 	// View component for the test
 	AddressBookViewMockUp view;
-	
+
 	// Controller component for the test
 	AddressBookController controller;
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */

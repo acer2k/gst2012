@@ -1,7 +1,7 @@
 <project name="exercise-1" default="compile" basedir=".">
 	<property name="src.dir" location="src"/>
 	<property name="bin.dir" location="bin"/>
-	<property name="lib.dir" location="lib"/>
+	<property name="lib.dir" location="../lib"/>
 
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
