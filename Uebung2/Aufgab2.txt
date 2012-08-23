@@ -1,0 +1,10 @@
+Aufgabe 2)
+
+Inne und äußere Qualität bezeichen die verschiedenen Qualitätssichtweisen auf das zu testene Produkt. Bei der inneren Sichtweise betrachtet man das Produkt aus Entwickler sicht. So spielt es z.B. bei der inneren Qualität eine Rolle ob das Produkt eine gute Änderbarkeit aufweist. Denn eine gute Änderbarkeit ermöglicht es Entwicklern, ohne hohen Aufwand, Modifizierungen an der Software vorzunehmen, um diese z.B. an eine neuen Kundenumgebeung bzw. Kundenanforderung anzupassen.
+Als Beispiel könnte man hier stark modulare Software aufführen, bei der man ggf. nur ein Modul ändern müsste ohne die ganze Software anpassen zu müssen.
+Natürlich bedarf es vor einer Modifizierung erst einer guten Analysierbarkeit der Software. Schließlich muss erst festgestellt werden wo und wie zukünftige Modifizierungen vorgenommen werden sollen.
+Nach einer gegebenen Änderung bedarf es Test die einen gewissen Aufwand benötigen. Den Aufwand bezeichnet man als inneres Merkmal bzw. Testbarkeit. Die Tests können auch Aussagen über die Stabilität eines Programms treffen.
+Bei den bisher vorgstellten Merkmalen handelte es sich um innere Qualitätsmerkmale, welche vorallem für den Entwickler von Interesse sind bzw. einer inneren Sichtweise entsprechen.
+Wohingegen das äußere Merkmal der Benutzbarkeit eindeutig eine Sicht des Nutzers darstellt. So ist z.B. für den Nutzer die Analysierbarkeit der Software weit weniger Interessant als die Bedienbarkeit. Denn der Nutzer möchte die Software nicht ändern sondern mit ihr arbeiten. Aus diesem Grund ist die Erlernbarkeit ebenfalls von hoher Bedeutung. Eine Software die Verständlich und leicht Erlernbar ist ist auch einfacher in einem Unternehmen durchzusetzen und daher vom höheren Interesse. 
+Alles in allem kann man zusammenfassen, dass die äußere Qualität im Vergleich zur inneren Qualität auf anwendungsbezogene bzw. Nutzerkritieren bezieht währenddessen die innere Qualität sich auf Merkmale der Entwicklersicht z.B. der Softwarekonstruktion und technisch spezifischen Eigenschaften bezieht. 
+
