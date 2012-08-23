@@ -1,0 +1,52 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+%\usepackage{german}
+\usepackage[pdftex]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+\title{Grundlagen des Software-Testens -- Übung 2}
+\author{Gruppe 8: Felix Jendrusch, Sascha Gennrich, \\Johannes Klick, Irena Kpogbezan}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Theoretische Aufgabe 1 -- Herausforderungen bei der Qualitätssicherung}
+
+\paragraph{Zunehmender Einsatz von Software} Software wird heutzutage in immer mehr Bereichen eingesetzt, in denen Fehler schwere Konsequenzen nach sich ziehen können (z.B. Operationsroboter, Katastrophenwarnsysteme, Produktion). Damit sinkt die Fehlertoleranz.
+\paragraph{Steigende Komplexität} Software wird immer komplexer. In dieser Komplexität können Fehler leichter entstehen, aber auch leichter übersehen werden.
+\paragraph{Höhere Kundenerwartungen} Bei der Fülle von Softwareanbietern heutzutage muss ein Softwareprodukt höhere Standards erfüllen, um sich gegen Konkurrenz behaupten zu können.
+\paragraph{Outsourcing} Durch die Trennung von der Planung und der Entwicklung entstehen natürlich Diskrepanzen, die sich auf die Qualität der Software auswirken können, indem beispielsweise auf Entwicklerseite die Spezifikation falsch verstanden wurde.
+\paragraph{Streben nach effizienter Entwicklung} Wenn Software möglichst schnell oder preiswert entwickelt werden soll, müssen oft Abstriche bei der Qualität gemacht werden.
+\paragraph{}
+
+\newpage
+
+\section*{Theoretische Aufgabe 2 -- interne und externe Softwarequalität}
+
+Inne und äußere Qualität bezeichnen die verschiedenen Qualitätssichtweisen auf das zu testende Produkt. Bei der inneren Sichtweise betrachtet man das Produkt aus Entwicklersicht. So spielt es z.B. bei der inneren Qualität eine Rolle ob das Produkt eine gute Änderbarkeit aufweist. Denn eine gute Änderbarkeit ermöglicht es Entwicklern, ohne hohen Aufwand, Modifizierungen an der Software vorzunehmen, um diese z.B. an eine neuen Kundenumgebung bzw. Kundenanforderung anzupassen. Als Beispiel könnte man hier stark modulare Software aufführen, bei der man ggf. nur ein Modul ändern müsste ohne die ganze Software anpassen zu müssen.\\
+
+Natürlich bedarf es vor einer Modifizierung erst einer guten Analysierbarkeit der Software. Schließlich muss erst festgestellt werden wo und wie zukünftige Modifizierungen vorgenommen werden sollen.
+Nach einer gegebenen Änderung bedarf es Test die einen gewissen Aufwand benötigen. Den Aufwand bezeichnet man als inneres Merkmal bzw. Testbarkeit. Die Tests können auch Aussagen über die Stabilität eines Programms treffen.
+Bei den bisher vorgestellten Merkmalen handelte es sich um innere Qualitätsmerkmale, welche vor allem für den Entwickler von Interesse sind bzw. einer inneren Sichtweise entsprechen.\\
+
+Wohingegen das äußere Merkmal der Benutzbarkeit eindeutig eine Sicht des Nutzers darstellt. So ist z.B. für den Nutzer die Analysierbarkeit der Software weit weniger Interessant als die Bedienbarkeit. Denn der Nutzer möchte die Software nicht ändern sondern mit ihr arbeiten. Aus diesem Grund ist die Erlernbarkeit ebenfalls von hoher Bedeutung. Eine Software die Verständlich und leicht Erlernbar ist ist auch einfacher in einem Unternehmen durchzusetzen und daher vom höheren Interesse. 
+Alles in allem kann man zusammenfassen, dass die äußere Qualität im Vergleich zur inneren Qualität auf anwendungsbezogene bzw. Nutzerkriterien bezieht währenddessen die innere Qualität sich auf Merkmale der Entwicklersicht z.B. der Softwarekonstruktion und technisch spezifischen Eigenschaften bezieht. 
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
