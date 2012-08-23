@@ -5,16 +5,18 @@
  */
 package exercise2.test;
 
-import org.junit.Before;
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import org.mockito.ArgumentCaptor;
-import static org.mockito.Mockito.any;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import exercise2.addressbook.controller.AddressBookController;
 import exercise2.addressbook.controller.AddressBookControllerImpl;
@@ -81,10 +83,20 @@ public class AddressBookControllerTest {
 		assertEquals("123456789", entry.getContactInformation().toString());
 	}
 
-	@Test(expected=ParameterException.class)
+	@Test
 	public void addFirstNameNull() throws ParameterException,
-			SizeLimitReachedException {
-		this.controller.add(null, "Doe", "M", null, "john@doe.me");
+			SizeLimitReachedException {	
+		try {
+			// When adding null as first name
+			this.controller.add(null, "Doe", "M", null, "john@doe.me");
+	
+			fail("expected ParameterException when adding null als first name");
+		} catch (ParameterException e) {
+			
+			//Then model is not updated
+			verify(model, times(0)).addEntry(any(Entry.class));
+		}
+		
 	}
 
 	@Test(expected=ParameterException.class)
