@@ -5,10 +5,15 @@
  */
 package exercise2.test;
 
+
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.io.File;
@@ -31,6 +36,11 @@ import exercise2.addressbook.view.AddressBookView;
 /**
  * Uebung 2 - Komponenten und Integrationstest
  * Integration Test für Addressbook und Controller.
+ * 
+ * Man kan sich wundern warum nei die View überprüft wird.
+ * In den Spezifikationsdokumenten steht nirgendwo drin, dass die View
+ * aktualisiert werden soll, wenn sich das Modell ändert.
+ * Was nicht in der Spec drin steht wird auch nicht getestet.
  *
  * Bitte Nummer der Gruppe eintragen:
  * 8
@@ -61,6 +71,10 @@ public class ControllerAddressBookIntegrationTest {
 
 	// Controller component for the test
 	AddressBookController controller;
+	
+	final String[] aliceData = {"Alice", "Doe", "F", "987654321", null};
+	final String[] bobData = {"Bob", "Doe", "M", "567891234", null};
+	final String[] johnData = {"John", "Doe", "M", "123456789", null};
 
 	/**
 	 * @throws java.lang.Exception
@@ -82,7 +96,6 @@ public class ControllerAddressBookIntegrationTest {
 	@Test
 	public void add() throws ParameterException, SizeLimitReachedException {
 		// Given
-		String[] johnData = {"John", "Doe", "M", "123456789", null};
 		Entry johnEntry = new Entry("Doe", "John",Gender.Male, new PhoneNumber(123456789));
 		int sizeOfmodel = model.getEntries().size();
 		ArgumentCaptor<Entry> entryAdded = ArgumentCaptor.forClass(Entry.class);
@@ -95,7 +108,7 @@ public class ControllerAddressBookIntegrationTest {
 		verify(model).addEntry(entryAdded.capture());
 		assertThat(entryAdded.getValue(), is(johnEntry));
 		assertThat(model.getEntries().size(), is(sizeOfmodel + 1));
-		
+		assertThat(model.getEntries().contains(johnEntry), is(true));
 	}
 	
 	@Test(expected=ParameterException.class)
@@ -165,15 +178,70 @@ public class ControllerAddressBookIntegrationTest {
 	}
     */
 	@Test
-	
-	
-	public void remove() {
-		
+	public void removeOneEntry() throws Exception {
+		// Given addressbook with some entry, added in non alphebetic order
+		this.controller.add(
+				johnData[0], johnData[1], johnData[2], johnData[3], johnData[4]);
+		this.controller.add(
+				aliceData[0], aliceData[1], aliceData[2], aliceData[3], aliceData[4]);
+		this.controller.add(
+				bobData[0], bobData[1], bobData[2], bobData[3], bobData[4]);
+		int sizeBefor = model.getEntries().size();
 		// Entries are ordered by surname and firstname (ascending).
+		
+		// When removing john
+		controller.remove(2);
+		
+		// Then
+		Entry johnEntry = new Entry("Doe", "John",Gender.Male, new PhoneNumber(123456789));
+		verify(model).deleteEntry(eq(johnEntry));
+		assertThat(model.getEntries().size(), is(equalTo(sizeBefor -1)));
+		
 	}
-
+	
 	@Test
-	public void erase() {
-		// This will fail because erase's while condition is wrong.
+	/**
+	 * Fehler: Die Spezifikation oder das JavaDoc sagt nichts über eine Exception.
+	 * "The entry number is not allowed to refer to a non existing entry."
+	 * Es sei denn man interpretiert "is not allowed" als Definition von Exception
+	 * werfen.
+	 */
+	public void removeTooHighNumber() throws Exception {
+		//Given addressbook with one entry
+		controller.add(
+				johnData[0], johnData[1], johnData[2], johnData[3], johnData[4]);
+		int sizeBefore = model.getEntries().size();
+		
+		// When 
+		controller.remove(1);
+		
+		// Then everything should still be fine
+		int sizeAfter = model.getEntries().size();
+		assertThat(sizeAfter, is(equalTo(sizeBefore)));
+		
+	}
+	
+	@Test
+	/**
+	 * This will fail because erase's while condition is wrong. 
+	 */
+	public void erase() throws Exception {
+		// Given addressbook with some entry, added in non alphebetic order
+		this.controller.add(
+				johnData[0], johnData[1], johnData[2], johnData[3], johnData[4]);
+		this.controller.add(
+				aliceData[0], aliceData[1], aliceData[2], aliceData[3], aliceData[4]);
+		this.controller.add(
+				bobData[0], bobData[1], bobData[2], bobData[3], bobData[4]);
+				
+		// When
+		controller.erase();
+		
+		// Then
+		// verify(model).erase(); I expected controller.erase, would just call model.erase
+		verify(model, times(3)).deleteEntry(any(Entry.class));
+		assertThat(model.getEntries().size(), is(0));
+		
+				
 	}
 }
