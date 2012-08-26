@@ -1,3 +1,5 @@
+Author: Sascha Gennrich, Felix-Johannes Jendrusch, Johannes Klick (Gruppe 8)
+
 ## Aufgabe 2
 
 ### Keep testing at unit level
