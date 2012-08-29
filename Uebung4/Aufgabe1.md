@@ -70,6 +70,7 @@ Die Zahlen in den folgenden Listen beziehen sich also auf die Anweisung in der e
     
     [mitte, 5, 6] 
     [mitte, 5, 7] 
+    [mitte, 5, 8] 
     [mitte, 5, 9] 
     [mitte, 5, 11] 
 
