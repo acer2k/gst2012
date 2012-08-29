@@ -38,7 +38,7 @@ Wie wir später noch feststellen reichen diese beiden Fälle auch für Zweigübe
 
 ## b) Bestimmen Sie konkrete Testfälle zur vollständigen Zweigüberdeckung und erläutern Sie, warum eine vollständige Zweigüberdeckung erreicht wird.
 
-Wie im Aufgabenteil a) dargelegt wird jede Entscheidung im Programm durch die Tests in beide Seiten ausgewertet.
+Wie im Aufgabenteil a) dargelegt wird jede Entscheidung im Programm durch die Tests in beide Seiten ausgewertet und somit wird auch jede Kante des Kontrollflussgraphen abgegangen.
 Das heißt wir haben 100% Zweigüberdeckung bereits bei 1.a schon geleistet und verweisen darauf :)
 
 ## c) Bestimmen Sie alle du-Ketten.
