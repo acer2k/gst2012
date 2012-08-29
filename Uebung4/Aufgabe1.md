@@ -1,7 +1,7 @@
 Aufgabe 1 - Pfadüberdeckung
 ===========================
 
-> Anmerkung: Dieses Dokument findet sich auch auf github github.com/acer2k/gst2012/Uebung4/Aufgabe1.md
+> Anmerkung: Dieses Dokument findet sich auch auf github github.com/acer2k/gst2012/blob/master/Uebung4/Aufgabe1.md
 
 ## a) Bestimmen Sie konkrete Testfälle zur vollständigen Anweisungsüberdeckung und erläutern Sie, warum eine vollständige Anweisungsüberdeckung erreicht wird.
 
@@ -22,19 +22,25 @@ Für folgende Eingabe werden alle Körper aller Bedingungen im Körper der while
     und der Wert wird als gefunden zurückgeliefert.
 
 ### Test ohne Schleifendurchlauf
-Nun haben wir schon fast alle Anweisungen ausgewertet. Es fehlt nur noch die letzte. Die Überdecken wir durch den trivialen Fall der leeren Liste.
+
+Nun haben wir schon fast alle Anweisungen ausgewertet. 
+Es fehlt nur noch die letzte. Die Überdecken wir durch den trivialen Fall der leeren Liste.
 
     bla = 0
     alphabet = { }
 
 Der Schleifenkörper wird nicht betreten und die Funktion liefert -1 zurück.
 
-Durch diese zwei Fälle haben wir komplette Ausführungsüberdeckung erreicht, was nicht bedeutet, dass wir sinnvolle oder ausreichend Tests geschrieben haben. Wie wir später noch feststellen reichen diese beiden Fälle auch für Zweigüberdeckung sowie für du-Pfadüberdeckung.
+Durch diese zwei Fälle haben wir komplette Ausführungsüberdeckung erreicht, 
+was nicht bedeutet, dass wir sinnvolle oder ausreichend Tests geschrieben haben.
+Wie wir später noch feststellen reichen diese beiden Fälle auch für Zweigüberdeckung sowie für du-Pfadüberdeckung.
 
 ## b) Bestimmen Sie konkrete Testfälle zur vollständigen Zweigüberdeckung und erläutern Sie, warum eine vollständige Zweigüberdeckung erreicht wird.
 
 Wie im Aufgabenteil a) dargelegt wird jede Entscheidung im Programm durch die Tests in beide Seiten ausgewertet.
-Das heißt wir haben 100% Entscheidungsüberdeckung. Mit 100%-iger Entscheidungsüberdeckung gehen auch 100% Zweigüberdeckung einher (siehe Kap.5 Folie 36).
+Das heißt wir haben 100% Entscheidungsüberdeckung.
+Mit 100%-iger Entscheidungsüberdeckung gehen auch 100% Zweigüberdeckung einher (siehe Kap.5 Folie 36).
+
 ## c) Bestimmen Sie alle du-Ketten.
 
 zur Vereinfachung habe ich alle Zeilen mit Nummern annotiert.
