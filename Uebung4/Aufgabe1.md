@@ -38,12 +38,7 @@ Wie wir später noch feststellen reichen diese beiden Fälle auch für Zweigübe
 ## b) Bestimmen Sie konkrete Testfälle zur vollständigen Zweigüberdeckung und erläutern Sie, warum eine vollständige Zweigüberdeckung erreicht wird.
 
 Wie im Aufgabenteil a) dargelegt wird jede Entscheidung im Programm durch die Tests in beide Seiten ausgewertet.
-<<<<<<< HEAD
 Das heißt wir haben 100% Zweigüberdeckung bereits bei 1.a schon geleistet und verweisen darauf :)
-=======
-Das heißt wir haben 100% Entscheidungsüberdeckung.
-Mit 100%-iger Entscheidungsüberdeckung gehen auch 100% Zweigüberdeckung einher (siehe Kap.5 Folie 36).
->>>>>>> 82576b8ad8f0bff082f50f9c213becc7d1079776
 
 ## c) Bestimmen Sie alle du-Ketten.
 
