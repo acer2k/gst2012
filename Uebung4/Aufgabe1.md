@@ -21,6 +21,7 @@ Für folgende Eingabe werden alle Körper aller Bedingungen im Körper der while
 5. Im dritten Durchlauf werten die ersten beiden Bedingungen `false` aus
     und der Wert wird als gefunden zurückgeliefert.
 
+
 ### Test ohne Schleifendurchlauf
 
 Nun haben wir schon fast alle Anweisungen ausgewertet.
@@ -82,8 +83,23 @@ Die Zahlen in den folgenden Listen beziehen sich also auf die Anweisung in der e
 
 ## d) Bestimmen Sie konkrete Testfälle, so dass jede du-Kette mindestens einmal durchlaufen wird („du-Ketten-Überdeckung“) und erläutern Sie, warum eine vollständige du-Ketten-Überdeckung erreicht wird.
 
-In diesem Fall reicht schon der erste Test um alle *du-Ketten* zu überdecken, weil alle Anweisungen, die schreibend oder lesend auf eine Variable zugreifen, mindestens einmal ausgeführt werden.
+Zusätzlich zu dem ersten Test: `Test Schleifenüberdeckung` brauchen wir für diesen Fall einen weiteren Test
 
+### Test Schleifenkörper andere Richtung
+
+Wenn der obige Test mit 
+
+    zeichen = 5
+
+ausgeführt wird, werden die beiden if-Anweisungen in der umgedrehten Reihenfolge durchlaufen.
+
+Diese beiden Tests reichen aus um alle du-Ketten zu durchlaufen,
+weil alle Anweisungen, die schreibend oder lesend auf eine Variable zugreifen,
+mindestens einmal ausgeführt werden.
+
+Speziell geht es um die du-Ketten `[erstes, 7,4]`, `[erstes, 7, 5]` sowie `[letztes, 9, 4]` und [letztes, 9, 5]`.
+Bei diesen Fällen muss der Schleifenkörper zwei mal durchlaufen werden, was durch die beiden Tests
+abgedeckt ist.
 
 ## Appendix
 
