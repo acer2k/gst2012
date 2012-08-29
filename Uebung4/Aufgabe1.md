@@ -34,7 +34,8 @@ Durch diese zwei Fälle haben wir komplette Ausführungsüberdeckung erreicht, w
 ## b) Bestimmen Sie konkrete Testfälle zur vollständigen Zweigüberdeckung und erläutern Sie, warum eine vollständige Zweigüberdeckung erreicht wird.
 
 Wie im Aufgabenteil a) dargelegt wird jede Entscheidung im Programm durch die Tests in beide Seiten ausgewertet.
-Das heißt wir haben 100% Entscheidungsüberdeckung. Mit 100%-iger Entscheidungsüberdeckung gehen auch 100% Zweigüberdeckung einher (siehe Kap.5 Folie 36).
+Das heißt wir haben 100% Zweigüberdeckung bereits bei 1.a schon geleistet und verweisen darauf :)
+
 ## c) Bestimmen Sie alle du-Ketten.
 
 zur Vereinfachung habe ich alle Zeilen mit Nummern annotiert.
