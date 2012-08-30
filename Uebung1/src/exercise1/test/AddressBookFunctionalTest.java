@@ -130,7 +130,7 @@ public class AddressBookFunctionalTest {
 		assertTrue("addEntry failed", added);
 
 		// When retrieving this entry
-		Entry getEntryBob = addressBook.getEntry("Bob", "Smith");
+		Entry getEntryBob = addressBook.getEntry(new String("Bob"), "Smith");
 
 		// Then the returned entry is expected to match the added entry
 		assertEquals("getEntry's returned entry didn't match the added entry",
