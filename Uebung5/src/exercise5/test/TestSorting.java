@@ -5,9 +5,11 @@
  */
 package exercise5.test;
 
+import java.awt.Component;
 import java.io.IOException;
 
 import javax.swing.JTable;
+import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 import javax.swing.table.TableModel;
 
 import junit.extensions.abbot.ComponentTestFixture;
@@ -20,6 +22,7 @@ import abbot.finder.ComponentNotFoundException;
 import abbot.finder.MultipleComponentsFoundException;
 import abbot.finder.matchers.NameMatcher;
 import abbot.tester.JButtonTester;
+import abbot.tester.JComponentTester;
 import abbot.tester.JTableLocation;
 import abbot.tester.JTableTester;
 import abbot.tester.JTextComponentTester;
@@ -44,6 +47,8 @@ public class TestSorting extends ComponentTestFixture {
 
 	// Tester for text field components
 	private JTextComponentTester textTester;
+	
+	private TableModel tableModel;
 
 	
 	/**
@@ -76,7 +81,6 @@ public class TestSorting extends ComponentTestFixture {
 	 * @throws MultipleComponentsFoundException When there is an ambiguous resolution of GUI components 
 	 * @throws IOException In case the address book data file could not be read 
 	 */
-	@Test
 	public void testEdit() throws ComponentNotFoundException, MultipleComponentsFoundException, IOException {
 		
 	    // Load data into address book
@@ -128,5 +132,53 @@ public class TestSorting extends ComponentTestFixture {
 	 * Sie ggfs. andere.
 	 */
 	
+	public void testSortsCorrect() throws ComponentNotFoundException, MultipleComponentsFoundException {
+
+		tableModel = ((JTable) findByName("viewTable")).getModel();
+		
+		loadData();
+		
+		// add some on first position
+		addEntry("Alfons", "Anfang", "a.a@entenhausen.de", "4.12.1912");
+		assertFirstAndLastName(0, new String("Alfons"), new String("Anfang"));
+		
+		// add someone in the middle
+		addEntry("Emil", "Erpel", "123451", "1.1.1969");
+		assertFirstAndLastName(8, new String("Emil"), new String("Erpel"));
+		
+		// add someone in the end
+		addEntry("Zacharias", "Zorngiebel", "654321", "5.12.1255");
+		assertFirstAndLastName(tableModel.getRowCount() - 1, new String("Zacharias"), new String("Zorngiebel"));
+		
+		
+	}
 	
+	private void assertFirstAndLastName(int rowIndex, String string, String string2) {
+		assertEquals(string, tableModel.getValueAt(rowIndex, 0));
+		assertEquals(string2, tableModel.getValueAt(rowIndex, 1));
+	}
+
+	private void loadData() throws ComponentNotFoundException, MultipleComponentsFoundException {
+		buttonTester.actionClick(getFinder().find(new NameMatcher("loadButton")));
+		
+	}
+
+	public void addEntry(String firstname, String lastname, String contact, String dob) 
+			throws ComponentNotFoundException, MultipleComponentsFoundException {
+		
+		buttonTester.actionClick(getFinder().find(new NameMatcher("addButton")));
+		
+		textTester.actionEnterText(findByName("firstNameTextfield"),firstname);
+		textTester.actionEnterText(findByName("lastNameTextfield"),lastname);
+		
+		buttonTester.actionClick(findByName("maleRadiobutton"));
+		textTester.actionEnterText(findByName("contactInformationTextfield"), contact);
+	    textTester.actionEnterText(findByName("dateOfBirthTextfield"), dob);
+	    
+	    buttonTester.actionClick(getFinder().find(new NameMatcher("okButton")));
+	}
+	
+	public Component findByName(String name) throws ComponentNotFoundException, MultipleComponentsFoundException{
+		return getFinder().find(new NameMatcher(name));
+	}
 }
