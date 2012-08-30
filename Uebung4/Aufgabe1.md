@@ -21,9 +21,10 @@ Für folgende Eingabe werden alle Körper aller Bedingungen im Körper der while
 5. Im dritten Durchlauf werten die ersten beiden Bedingungen `false` aus
     und der Wert wird als gefunden zurückgeliefert.
 
+
 ### Test ohne Schleifendurchlauf
 
-Nun haben wir schon fast alle Anweisungen ausgewertet. 
+Nun haben wir schon fast alle Anweisungen ausgewertet.
 Es fehlt nur noch die letzte. Die Überdecken wir durch den trivialen Fall der leeren Liste.
 
     bla = 0
@@ -31,15 +32,14 @@ Es fehlt nur noch die letzte. Die Überdecken wir durch den trivialen Fall der l
 
 Der Schleifenkörper wird nicht betreten und die Funktion liefert -1 zurück.
 
-Durch diese zwei Fälle haben wir komplette Ausführungsüberdeckung erreicht, 
+Durch diese zwei Fälle haben wir komplette Ausführungsüberdeckung erreicht,
 was nicht bedeutet, dass wir sinnvolle oder ausreichend Tests geschrieben haben.
 Wie wir später noch feststellen reichen diese beiden Fälle auch für Zweigüberdeckung sowie für du-Pfadüberdeckung.
 
 ## b) Bestimmen Sie konkrete Testfälle zur vollständigen Zweigüberdeckung und erläutern Sie, warum eine vollständige Zweigüberdeckung erreicht wird.
 
-Wie im Aufgabenteil a) dargelegt wird jede Entscheidung im Programm durch die Tests in beide Seiten ausgewertet.
-Das heißt wir haben 100% Entscheidungsüberdeckung.
-Mit 100%-iger Entscheidungsüberdeckung gehen auch 100% Zweigüberdeckung einher (siehe Kap.5 Folie 36).
+Wie im Aufgabenteil a) dargelegt wird jede Entscheidung im Programm durch die Tests in beide Seiten ausgewertet und somit wird auch jede Kante des Kontrollflussgraphen abgegangen.
+Das heißt wir haben 100% Zweigüberdeckung bereits bei 1.a schon geleistet und verweisen darauf :)
 
 ## c) Bestimmen Sie alle du-Ketten.
 
@@ -49,7 +49,7 @@ zur Vereinfachung habe ich alle Zeilen mit Nummern annotiert.
     2     int erstes = 0;
     3     int letztes = alphabet.length - 1;
     4     while (erstes <= letztes) {
-    5         final int mitte = erstes + ((letztes - erstes) / 2); 
+    5         final int mitte = erstes + ((letztes - erstes) / 2);
     6         if (alphabet[mitte] < zeichen) {
     7             erstes = mitte + 1;   // Rechts weitersuchen
     8         } else if (alphabet[mitte] > zeichen) {
@@ -67,12 +67,12 @@ Die Zahlen in den folgenden Listen beziehen sich also auf die Anweisung in der e
     [erstes, 2, 5]
     [erstes, 7, 4]
     [erstes, 7, 5]
-    
-    [mitte, 5, 6] 
-    [mitte, 5, 7] 
-    [mitte, 5, 8] 
-    [mitte, 5, 9] 
-    [mitte, 5, 11] 
+
+    [mitte, 5, 6]
+    [mitte, 5, 7]
+    [mitte, 5, 8]
+    [mitte, 5, 9]
+    [mitte, 5, 11]
 
     [alphabet, 1, 3]
     [alphabet, 1, 6]
@@ -83,8 +83,23 @@ Die Zahlen in den folgenden Listen beziehen sich also auf die Anweisung in der e
 
 ## d) Bestimmen Sie konkrete Testfälle, so dass jede du-Kette mindestens einmal durchlaufen wird („du-Ketten-Überdeckung“) und erläutern Sie, warum eine vollständige du-Ketten-Überdeckung erreicht wird.
 
-In diesem Fall reicht schon der erste Test um alle *du-Ketten* zu überdecken.
+Zusätzlich zu dem ersten Test: `Test Schleifenüberdeckung` brauchen wir für diesen Fall einen weiteren Test
 
+### Test Schleifenkörper andere Richtung
+
+Wenn der obige Test mit 
+
+    zeichen = 5
+
+ausgeführt wird, werden die beiden if-Anweisungen in der umgedrehten Reihenfolge durchlaufen.
+
+Diese beiden Tests reichen aus um alle du-Ketten zu durchlaufen,
+weil alle Anweisungen, die schreibend oder lesend auf eine Variable zugreifen,
+mindestens einmal ausgeführt werden.
+
+Speziell geht es um die du-Ketten `[erstes, 7,4]`, `[erstes, 7, 5]` sowie `[letztes, 9, 4]` und [letztes, 9, 5]`.
+Bei diesen Fällen muss der Schleifenkörper zwei mal durchlaufen werden, was durch die beiden Tests
+abgedeckt ist.
 
 ## Appendix
 
@@ -92,14 +107,14 @@ Hier kommt eine Tabelle die ich zum finden der du-Ketten benutzt habe
 
      Zeile | def(Zeile)          | use(Zeile)
     -------+---------------------+-----------
-       1   | {zeichen, alphabet} |  
-       2   | {erstes}            | 
-       3   | {letztes}           | {alphabet} 
-       4   |                     | {erstes, letztes} 
+       1   | {zeichen, alphabet} |
+       2   | {erstes}            |
+       3   | {letztes}           | {alphabet}
+       4   |                     | {erstes, letztes}
        5   | {mitte}             | {erstes, letztes}
-       6   |                     | {alphabet, mitte, zeichen} 
+       6   |                     | {alphabet, mitte, zeichen}
        7   | {erstes}            | {mitte}
        8   |                     | {alphabet, mitte, zeichen}
        9   | {letztes}           | {mitte}
-       10  |                     | 
+       10  |                     |
        11  |                     | {mitte}
