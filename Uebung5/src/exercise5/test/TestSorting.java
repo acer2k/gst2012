@@ -14,6 +14,9 @@ import javax.swing.table.TableModel;
 
 import junit.extensions.abbot.ComponentTestFixture;
 
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,6 +67,10 @@ public class TestSorting extends ComponentTestFixture {
 		this.buttonTester = new JButtonTester();
 		this.tableTester = new JTableTester();
 		this.textTester = new JTextComponentTester();
+		
+		this.tableModel = ((JTable) findByName("viewTable")).getModel();
+		
+		loadData();
 	}
 
 	/**
@@ -83,9 +90,6 @@ public class TestSorting extends ComponentTestFixture {
 	 */
 	public void testEdit() throws ComponentNotFoundException, MultipleComponentsFoundException, IOException {
 		
-	    // Load data into address book
-	    buttonTester.actionClick(getFinder().find(new NameMatcher("loadButton")));
-	    
 	    // Is the correct data in the table?
 	    TableModel content = ((JTable) getFinder().find(new NameMatcher("viewTable"))).getModel();
 	    assertEquals("Dagobert", content.getValueAt(0, 0));
@@ -134,10 +138,6 @@ public class TestSorting extends ComponentTestFixture {
 	
 	public void testSortsCorrect() throws ComponentNotFoundException, MultipleComponentsFoundException {
 
-		tableModel = ((JTable) findByName("viewTable")).getModel();
-		
-		loadData();
-		
 		// add some on first position
 		addEntry("Alfons", "Anfang", "a.a@entenhausen.de", "4.12.1912");
 		assertFirstAndLastName(0, new String("Alfons"), new String("Anfang"));
@@ -150,6 +150,95 @@ public class TestSorting extends ComponentTestFixture {
 		addEntry("Zacharias", "Zorngiebel", "654321", "5.12.1255");
 		assertFirstAndLastName(tableModel.getRowCount() - 1, new String("Zacharias"), new String("Zorngiebel"));
 		
+	}
+	
+//	- unterschiedlicher Nachname, gleicher Vorname
+	public void testSortingDifferentLastnameSameFirstname() 
+			throws ComponentNotFoundException, MultipleComponentsFoundException {
+		String dagobert = "Dagobert";
+		String biber = "Biber";
+		addEntry(dagobert, biber, "d.b@entenhausen.de", "1.1.1950");
+		assertFirstAndLastName(0, dagobert, biber);
+		
+	}
+	
+//	- gleicher Nachname, unterschiedlicher Vorname
+	public void testSortingSameLastnameDifferentFirstName()
+			throws ComponentNotFoundException, MultipleComponentsFoundException {
+		String alfons = "Alfons";
+		String duck = "Duck";
+		addEntry(alfons, duck, "d.b@entenhausen.de", "1.1.1950");
+		assertFirstAndLastName(0, alfons, duck);
+	}
+	
+//	- Groß- und Kleinschreibung
+	/* Ich bin mir nicht sicher was 
+	 * "Zwischen Gro-und Kleinschreibung wird nicht unterschieden."
+	 * genau bedeuten soll.
+	 * Ich interpretiere es so, dass "dagobert" und "Dagobert" der selbe Name
+	 * ist und somit nicht eingefügt wird.
+	 */
+	public void testSortingSameNameDifferentCase() throws Exception {
+		String dagobert = "dAgObErT";
+		String duck = "DuCk";
+		addEntry(dagobert, duck, "d.b@entenhausen.de", "1.1.1950");
+		
+		// the entry was not added to table
+		// neither in first row nor in second row
+		assertThat(dagobert, 	is( not( tableModel.getValueAt(0, 0))));
+		assertThat(duck, 		is( not( tableModel.getValueAt(0, 1))));
+		assertThat(dagobert, 	is( not( tableModel.getValueAt(1, 0))));
+		assertThat(duck, 		is( not( tableModel.getValueAt(1, 1))));
+	}
+	
+//	- Ignorieren von existierenden Einträgen (Nachname, Vorname)
+	public void testAddingSameName() throws Exception {
+		String dagobert = "Dagobert";
+		String duck = "Duck";
+		addEntry(dagobert, duck, "d.b@entenhausen.de", "1.1.1950");
+		
+		// the entry was not added to table
+		// neither in first row nor in second row
+		assertThat(dagobert, 	is( tableModel.getValueAt(0, 0)));
+		assertThat(dagobert, 	is( not( tableModel.getValueAt(1, 0))));
+	}
+	
+//	- Einträge ohne Vorname
+	public void testAddingNoName() throws Exception {
+		String noName = "";
+		String dagobert = "Dagobert";
+		String duck = "Duck";
+		addEntry(noName, duck, "d.b@entenhausen.de", "1.1.1950");
+		addEntry(dagobert, noName, "d.b@entenhausen.de", "1.1.1950");
+		addEntry(noName, noName, "d.b@entenhausen.de", "1.1.1950");
+		// the entry was not added to table
+		// neither in first row nor in second row
+		for (int i = 0; i < tableModel.getRowCount(); i++){
+			assertThat("failure in row "+i,	(String) tableModel.getValueAt(i, 0), is( not(noName)));
+			assertThat("failure in row "+i, (String) tableModel.getValueAt(0, i), is( not(noName)));	
+		}
+	}
+
+//	- Sortierung von Sonderzeichen
+//	- Umsortierung nach Bearbeitung
+
+	public void testSortingAfterEdit() throws Exception {
+		
+		  // Edit first entry in table
+	    tableTester.actionSelectCell(findByName("viewTable"), new JTableLocation(0,0));
+	    buttonTester.actionClick(findByName("editButton"));
+	 
+	    // Change entry's values
+	    textTester.actionEnterText(findByName("firstNameTextfield"), "Dagobert");
+	    textTester.actionEnterText(findByName("lastNameTextfield"), "Erpel");
+	    buttonTester.actionClick(findByName("femaleRadiobutton"));
+	    buttonTester.actionClick(findByName("phoneRadiobutton"));
+	    textTester.actionEnterText(findByName("contactInformationTextfield"), "999999");
+	    textTester.actionEnterText(findByName("dateOfBirthTextfield"), "1.1.1111");
+	    buttonTester.actionClick(findByName("okButton"));
+		     
+	    assertThat( (String) tableModel.getValueAt(6, 0), is( "Dagobert"));
+	    assertThat( (String) tableModel.getValueAt(6, 1), is( "Erpel"));
 		
 	}
 	
@@ -159,14 +248,14 @@ public class TestSorting extends ComponentTestFixture {
 	}
 
 	private void loadData() throws ComponentNotFoundException, MultipleComponentsFoundException {
-		buttonTester.actionClick(getFinder().find(new NameMatcher("loadButton")));
+		buttonTester.actionClick(findByName("loadButton"));
 		
 	}
 
 	public void addEntry(String firstname, String lastname, String contact, String dob) 
 			throws ComponentNotFoundException, MultipleComponentsFoundException {
 		
-		buttonTester.actionClick(getFinder().find(new NameMatcher("addButton")));
+		buttonTester.actionClick(findByName("addButton"));
 		
 		textTester.actionEnterText(findByName("firstNameTextfield"),firstname);
 		textTester.actionEnterText(findByName("lastNameTextfield"),lastname);
@@ -175,10 +264,10 @@ public class TestSorting extends ComponentTestFixture {
 		textTester.actionEnterText(findByName("contactInformationTextfield"), contact);
 	    textTester.actionEnterText(findByName("dateOfBirthTextfield"), dob);
 	    
-	    buttonTester.actionClick(getFinder().find(new NameMatcher("okButton")));
+	    buttonTester.actionClick(findByName("okButton"));
 	}
 	
 	public Component findByName(String name) throws ComponentNotFoundException, MultipleComponentsFoundException{
-		return getFinder().find(new NameMatcher(name));
+		return findByName(name);
 	}
 }
