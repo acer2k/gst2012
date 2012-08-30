@@ -4,36 +4,36 @@ Author: Sascha Gennrich, Felix-Johannes Jendrusch, Johannes Klick (Gruppe 8)
 
 `position in (0, itemCount]` entspricht der aktuellen Position des Iterators, d.h., wenn `itemCount > 0` und `position = 0`, dann liefert `currentItem` das erste Element des Containers.
 
-	initial -- Iterator[itemCount > 0] --> more
-	        -- Iterator[itemCount = 0] --> end
-	more -- currentItem --> more
-	     -- next[position < itemCount - 1] --> more
-	     -- next[position = itemCount - 1] --> end
-	     -- first --> more
-	     -- isDone --> more
-	     -- ~Iterator -- final
-	end -- first[itemCount > 0] --> more
-	    -- first[itemCount = 0] --> end
-	    -- isDone --> end
-	    -- ~Iterator --> final
+	initial -- Iterator[itemCount > 0]        --> more
+	        -- Iterator[itemCount = 0]        --> end
+	more    -- currentItem                    --> more
+	        -- next[position < itemCount - 1] --> more
+	        -- next[position = itemCount - 1] --> end
+	        -- first                          --> more
+	        -- isDone                         --> more
+	        -- ~Iterator                      --> final
+	end     -- first[itemCount > 0]           --> more
+	        -- first[itemCount = 0]           --> end
+	        -- isDone                         --> end
+	        -- ~Iterator                      --> final
 	final
 
 ## Aufgabe 2
 
-	initial -- Iterator --> more
-	        -- Iterator --> end(empty)
-	more -- currentItem --> more
-	     -- next --> more
-	     -- next --> end(nonempty)
-	     -- first --> more
-	     -- isDone --> more
-	     -- ~Iterator --> final
-	end(empty) -- first --> end(empty)
-	           -- isDone --> end(empty)
-	           -- ~Iterator --> final
-	end(nonempty) -- first --> more
-	              -- isDone --> end(nonempty)
-	              -- ~Iterator --> final
+	initial       -- Iterator    --> more
+	              -- Iterator    --> end(empty)
+	more          -- currentItem --> more
+	              -- next        --> more
+	              -- next        --> end(nonempty)
+	              -- first       --> more
+	              -- isDone      --> more
+	              -- ~Iterator   --> final
+	end(empty)    -- first       --> end(empty)
+	              -- isDone      --> end(empty)
+	              -- ~Iterator   --> final
+	end(nonempty) -- first       --> more
+	              -- isDone      --> end(nonempty)
+	              -- ~Iterator   --> final
 
 ## Aufgabe 3
 
