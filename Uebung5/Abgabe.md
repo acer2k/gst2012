@@ -18,6 +18,24 @@ Author: Sascha Gennrich, Felix-Johannes Jendrusch, Johannes Klick (Gruppe 8)
 	        -- ~Iterator                      --> final
 	final
 
+	                                         +---------+
+	                                         | initial | ---------------------------------+
+	                                         +---------+                                  |
+	                                           |                                          |
+	                                           | Iterator[itemCount > 0]                  | Iterator[itemCount = 0]
+	                                           v                                          v
+	                                         +------+ next[position = itemCount - 1]    +-----+
+	currentItem, first, isDone,     +--------|      |---------------------------------->|     |--------+ first[itemCount = 0],
+	next[position < itemCount - 1], |        | more |                                   | end |        | isDone
+	                                +------->|      |<----------------------------------|     |<-------+
+	                                         +------+              first[itemCount > 0] +-----+
+	                                           |                                          |
+	                                           | ~Iterator                                | ~Iterator
+	                                           v                                          |
+	                                         +-------+                                    |
+	                                         | final |<-----------------------------------+
+	                                         +-------+
+
 ## Aufgabe 2
 
 	initial       -- Iterator    --> more
@@ -34,6 +52,38 @@ Author: Sascha Gennrich, Felix-Johannes Jendrusch, Johannes Klick (Gruppe 8)
 	end(nonempty) -- first       --> more
 	              -- isDone      --> end(nonempty)
 	              -- ~Iterator   --> final
+
+	                                                          +---------+
+	                                                          | initial |
+	                                                          +---------+
+	                                                              | |
+	                             +--------------------------------+ +-------------------------------+
+	                             |                                                                  |
+	                             | Iterator                                                         | Iterator
+	                             v                                                                  v
+	                           +-----------+                                                      +-----+
+	                           |   more    |                                                      | end |
+	                           +-----------+                                                      +-----+
+	                            | | | | | |                                                        | | |
+	                            | | | | | +----------------------------+                           | | |
+	                            | | | | |                              |                           | | |
+	  +-------------------------+ | | | +------------------+           |                           | | |
+	  |                           | | |                    |           |                           | | |
+	  |                 +---------+ | +--------+           |           |                  +--------+ | +---------+
+	  |                 |           |          |           |           |                  |          |           |
+	  | currentItem     | next      | next     | first     | isDone    | ~Iterator        | first    | isDone    | ~Iterator
+	  v                 v           v          v           v           v                  v          v           v
+	+------+          +------+    +-----+    +------+    +------+    +-------+          +-----+    +-----+     +-------+
+	| more |          | more |    | end |    | more |    | more |    | final |          | end |    | end |     | final |
+	+------+          +------+    +-----+    +------+    +------+    +-------+          +-----+    +-----+     +-------+
+	                               | | |
+	                    +----------+ | +---------+
+	                    |            |           |
+	                    | first      | isDone    | ~Iterator
+	                    v            v           v
+	                  +------+     +-----+     +-------+
+	                  | more |     | end |     | final |
+	                  +------+     +-----+     +-------+
 
 ## Aufgabe 3
 
