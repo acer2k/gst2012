@@ -1,5 +1,7 @@
 Author: Sascha Gennrich, Felix-Johannes Jendrusch, Johannes Klick (Gruppe 8)
 
+<https://github.com/acer2k/gst2012/blob/master/Uebung5/Abgabe.md>
+
 ## Aufgabe 1
 
 `position in (0, itemCount]` entspricht der aktuellen Position des Iterators, d.h., wenn `itemCount > 0` und `position = 0`, dann liefert `currentItem` das erste Element des Containers.
