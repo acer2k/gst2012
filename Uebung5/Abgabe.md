@@ -36,6 +36,8 @@ Author: Sascha Gennrich, Felix-Johannes Jendrusch, Johannes Klick (Gruppe 8)
 	                                         | final |<-----------------------------------+
 	                                         +-------+
 
+`initial` ist Anfangszustand, `final` ist Endzustand.
+
 ## Aufgabe 2
 
 	initial       -- Iterator    --> more
@@ -85,23 +87,40 @@ Author: Sascha Gennrich, Felix-Johannes Jendrusch, Johannes Klick (Gruppe 8)
 	                  | more |     | end |     | final |
 	                  +------+     +-----+     +-------+
 
+Wir haben die Erweiterung des Übergangsbaumes für Zustands-Robustheitstests bewusst ausgelassen, um die Übersichtlichkeit zu fördern. Es handelt sich um folgende Übergänge:
+
+	end(empty)    -- currentItem --> error
+	              -- next        --> error
+	end(nonempty) -- currentItem --> error
+	              -- next        --> error
+
 ## Aufgabe 3
 
 Wir nehmen an, dass `Iterator` mit `itemCount = 4` initialisiert wird. Logische Tests zur vollständigen Transitionsüberdeckung eines solchen Containers können offensichtlich nicht alle Übergänge des Übergangsbaumes abdecken.
 
 Es ergeben sich die folgenden acht (sieben) logischen Tests:
 
-- `Iterator[itemCount = 4]`, `currentItem`
-- `Iterator[itemCount = 4]`, `next` (auch durch die folgenden drei logischen Tests abgedeckt)
-- `Iterator[itemCount = 4]`, `next`, `next`, `next`, `next`, `first`
-- `Iterator[itemCount = 4]`, `next`, `next`, `next`, `next`, `isDone`
-- `Iterator[itemCount = 4]`, `next`, `next`, `next`, `next`, `~Iterator`
-- `Iterator[itemCount = 4]`, `first`
-- `Iterator[itemCount = 4]`, `isDone`
-- `Iterator[itemCount = 4]`, `~Iterator`
+	<initial> new Iterator[itemCount=4]() <more> currentItem() <more>
+	<initial> new Iterator[itemCount=4]() <more> next() <more> (auch durch die folgenden drei logischen Tests abgedeckt)
+	<initial> new Iterator[itemCount=4]() <more> next() <more> next() <more> next() <more> next() <end> first() <more>
+	<initial> new Iterator[itemCount=4]() <more> next() <more> next() <more> next() <more> next() <end> isDone() <end>
+	<initial> new Iterator[itemCount=4]() <more> next() <more> next() <more> next() <more> next() <end> ~Iterator() <final>
+	<initial> new Iterator[itemCount=4]() <more> first() <more>
+	<initial> new Iterator[itemCount=4]() <more> isDone() <more>
+	<initial> new Iterator[itemCount=4]() <more> ~Iterator() <final>
 
-Es fehlen die folgenden drei logischen Tests:
+Es ergeben sich außerdem die folgenden zwei Zustands-Robustheitstests:
 
-- `Iterator[itemCount = 0]`, `first`
-- `Iterator[itemCount = 0]`, `isDone`
-- `Iterator[itemCount = 0]`, `~Iterator`
+	<initial> new Iterator[itemCount=4]() <more> next() <more> next() <more> next() <more> next() <end> currentItem() <error>
+	<initial> new Iterator[itemCount=4]() <more> next() <more> next() <more> next() <more> next() <end> next() <error>
+
+Es fehlen die folgenden drei logischen Tests zur vollständigen Transitionsüberdeckung beliebiger Container:
+
+	<initial> new Iterator[itemCount=0]() <end> first() <end>
+	<initial> new Iterator[itemCount=0]() <end> isDone() <end>
+	<initial> new Iterator[itemCount=0]() <end> ~Iterator() <final>
+
+Es fehlen außerdem die folgenden zwei Zustands-Robustheitstests zur vollständigen Transitionsüberdeckung beliebiger Container:
+
+	<initial> new Iterator[itemCount=0]() <end> currentItem() <error>
+	<initial> new Iterator[itemCount=0]() <end> next() <error>
