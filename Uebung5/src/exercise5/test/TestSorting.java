@@ -9,7 +9,6 @@ import java.awt.Component;
 import java.io.IOException;
 
 import javax.swing.JTable;
-import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 import javax.swing.table.TableModel;
 
 import junit.extensions.abbot.ComponentTestFixture;
@@ -268,6 +267,6 @@ public class TestSorting extends ComponentTestFixture {
 	}
 	
 	public Component findByName(String name) throws ComponentNotFoundException, MultipleComponentsFoundException{
-		return findByName(name);
+		return getFinder().find(new NameMatcher(name));
 	}
 }
