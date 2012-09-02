@@ -12,3 +12,9 @@ bin/
 *.swp
 
 Folien/
+
+#tex stuff
+*.aux
+*.log
+*.pdf
+
