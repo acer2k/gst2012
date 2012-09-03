@@ -1,9 +1,9 @@
-ID,Titel,Beschreibung,Risiko,Priorität
-1,Reihenfolge der Einträge,"alphabetisch Sortiert nach DIN 5007, Variante 2, Ordnen von Schriftzeichenfolgen",,
-2,Unterscheidungsmerkmale,nur Vor- und Nachname der Einträge,,
-3,Priorität der Merkmale,"Erst der Nachname, dann der Vorname",,
-4,Groß- und Kleinschreibung,Die Groß- und Kleinschreibung der Wörter wird nicht berücksichtigt. (Alice = alicE),,
-5,Gleiche Einträge,Es können keine Einträge mit dem selben Vor- und Nachname eingetragen.,,
-6,Vor- und Nachnamenzwang,Jeder Eintrag muss einen Vor- und einen Nachnamen haben.,,
-7,Zulässige Zeichen im Namen,Name = [a-zA-Zäöüß]+,,
-8,Umschrift von Umlauten,"ä = ae, ö = oe, ü = ue, ß = ss",,
+ID,Titel,Beschreibung,Risiko (W*S=RPZ),,,Priorität
+1,Reihenfolge der Einträge,"alphabetisch Sortiert nach DIN 5007, Variante 2, Ordnen von Schriftzeichenfolgen",9,1000,9000,sehr Hoch
+2,Unterscheidungsmerkmale,nur Vor- und Nachname der Einträge werden für die Sortierung berücksichtigt,7,50,350,gering
+3,Priorität der Merkmale,"Erst der Nachname, dann der Vorname",8,10,80,gering
+4,Groß- und Kleinschreibung,Die Groß- und Kleinschreibung der Wörter wird nicht berücksichtigt. (Alice = alicE),8,50,400,eher gering
+5,Gleiche Einträge,Es können keine Einträge mit dem selben Vor- und Nachname eingetragen.,6,500,3000,eher hoch
+6,Vor- und Nachnamenzwang,Jeder Eintrag muss einen Vor- und einen Nachnamen haben.,5,100,500,eher gering
+7,Zulässige Zeichen im Namen,Name = [a-zA-Zäöüß]+,8,500,4000,hoch
+8,Umschrift von Umlauten,"DIN 5007, Variante 2: ä = ae, ö = oe, ü = ue, ß = ss",6,500,3000,mittel
