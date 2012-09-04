@@ -19,18 +19,29 @@ module aBBehavior {
 		 *     The verdict should be pass.
 		 */
         testcase TC_addEntry_withTimer () runs on ClientComponent system AddressBookSystem {
+            
+            timer timeCounter := 6.0;
+            
             map(self:sp, system:sp);
+            
             initialClear();
 
             sp.send(tAddEntry(tFirstEntry));
-            // please start a timer
+          
+            timeCounter.start;
+            
             alt {
-				// 1. Check that you do not receive anything
-				// 2. Until the timer timesout
-
+				
+			
+				[] timeCounter.timeout {
+				    setverdict(pass);
+				}
+				[] sp.receive {
+				    setverdict(fail);
+				}
             }
         }		
-		
+
         /**
 		 * @desc
 		 *     This test case checks if the System Under Test reports correctly
@@ -42,28 +53,49 @@ module aBBehavior {
 		 *     The verdict should be pass.
 		 */
         testcase TC_addEntry_UserExists() runs on ClientComponent system AddressBookSystem {
+            timer timeCounter1  := 6.0;
+            timer timecounter2 := 12.0;
+            var userExists rep;
+            
             map(self:sp, system:sp);
-
 
             sp.send(clear_:{});
             setverdict(pass);
-            log("Send my first message");
-            // Send a message
             
-            // Start a timer 
+           
+            sp.send(tAddEntry(tFirstEntry));
+            log("SENDING FIRST MESSAGE");
+                        
+             
+            timeCounter1.start;
             alt {
-				// Check for correct behaviour
+			
+				[] sp.receive {
+				    setverdict(fail);
+				}
+				[] timeCounter1.timeout {
+				 	setverdict(pass);
+				}
             }
 
-            log("Send my second message");
-            // send the same message 
-            	
-            // Start a timer
             
+            
+            sp.send(tAddEntry(tFirstEntry)); 
+            log("SENDING SECOND MESSAGE");
+            
+                        
+            timecounter2.start;
             alt {
-				// Check that the userExist message is received and that the message
-				// has the correct contents
 
+				[] sp.receive(rep) {
+				    setverdict(pass);
+				}
+				[] sp.receive {
+				    setverdict(fail);
+				}
+				[] timecounter2.timeout {
+				    setverdict(inconc);
+				}
             }
         }
 
@@ -75,25 +107,54 @@ module aBBehavior {
 		 * The verdict should be pass. 
 		 */
 		testcase TC_addEntry_sizeLimitReached() runs on ClientComponent system AddressBookSystem {
+            timer t := 3.0;
+            var boolean stillNotFound := true;
+            var integer i := 0;
+            var sizeLimitReached rep;
+            
 			map(self:sp, system:sp);
 
 			initialClear();
 
-			var boolean stillNotFound := true;
-			var integer i := 0;
 			do {
-			    // here we construct a frest entry
-				var charstring aName := int2str(float2int(rnd() * 1000.0));
-				sp.send(tAddEntry(tFlexEntry(SurName:aName, FirstName:aName)));
-				
-				// Start the timer 
+			    
+				var charstring JohnDoe := int2str(float2int(rnd()*1000.0));
+				sp.send(tAddEntry(tFlexEntry(SurName:JohnDoe, FirstName:JohnDoe)));
+
+			
+				t.start;
 				alt {
-					// Handle the responses and timers correctly.
+				
+					[] sp.receive(rep) {
+					    stillNotFound := false;
+					}
+					[] sp.receive {
+					   setverdict(fail);
+					}
+					[] t.timeout {
+                       
+					}
 				}
-				// increment the counter 
-			} while (/* formulate the while condition */);
+			
+				i := i + 1;
+			} while (stillNotFound and i <= 12);
+
+			if (stillNotFound) {
+			    
+			    log ("Limit not found!");
+			    
+			    setverdict(fail);
+			
+			}
+			
+			else {
+			    
+			    
+                log("Limit is " & int2str(i));
+				setverdict(pass);
+			}
 		}
-	
+
 		/**
 		 * @desc
 		 *     This test case tries to receive the contact information of a
@@ -103,21 +164,47 @@ module aBBehavior {
 		 *     2. We search for this entry and compare the email.
 		 */
 		testcase TC_getEntry_valid_Email() runs on ClientComponent system AddressBookSystem {
+		    timer timeCounter1  := 6.0;
+            timer timeCounter2 := 12.0;
+		    var getEntryReply rep;
+
 			map(mtc:sp, system:sp);
 			initialClear();
 
-			// 1. Insert the addressbook entry safely
+		
+			sp.send(tAddEntry(tFirstEntry));
 
-
+			timeCounter1.start;
 			alt {
-				// Check for the correct responses and handle the timers.
+		
+				[] sp.receive {
+				    setverdict(fail);
+				}
+				[] timeCounter1.timeout {
+				    setverdict(pass);
+				}
 			}
 
-			// 2. Search for the entry via the getEntry message. Use the surName as the key.
-			
 		
+			sp.send(tGetEntry(tFirstEntry.surName));
+
+			timeCounter2.start;
 			alt {
-                // Check for the correct responses and timers.
+             
+                [] sp.receive(rep) {
+                    if (rep.contact.email == tFirstEntry.contact.email) {
+                        setverdict(pass);
+                    }
+                    else {
+                        setverdict(fail);
+                    }
+                }
+                [] sp.receive {
+                    setverdict(fail);
+                }
+                [] timeCounter2.timeout {
+                    setverdict(inconc);
+                }
 			}
 		}
 
@@ -128,20 +215,46 @@ module aBBehavior {
 		 * The verdict should be pass in case the stored phone number is the correct one.
 		 */
 		testcase TC_getEntry_valid_phoneNumber() runs on ClientComponent system AddressBookSystem {
+		    timer timeCounter1  := 6.0;
+            timer timeCounter2 := 12.0;
+            var getEntryReply rep;
+            
 			map(mtc:sp, system:sp);
 			initialClear();
 
-			// 1. Add a contact with a phone number
-			
+		
+			sp.send(tAddEntry(tSecondEntry));
+			timeCounter1.start;
 			alt {
-                // Check for the correct responses and timers.
+            
+                [] sp.receive {
+                    setverdict(fail);
+                }
+                [] timeCounter1.timeout {
+                    setverdict(pass);
+                }
 			}
 
-			// 2. Search for the entry via the getEntry message. Use the surName as the key.
-			t1.start;
+			
+			sp.send(tGetEntry(tSecondEntry.surName));
+			timeCounter2.start;
 			alt {
-                // Check for the correct responses and timers.
-				// Pay in particular attention to the phone number content
+             
+			
+                [] sp.receive(rep) {
+                    if ( tSecondEntry.contact.number == rep.contact.number) {
+                        setverdict(pass);
+                    }
+                    else {
+                        setverdict(fail);
+                    }
+                }
+                [] sp.receive {
+                    setverdict(fail);
+                }
+                [] timeCounter2.timeout {
+                    setverdict(inconc);
+                }
 			}
 		}
 
