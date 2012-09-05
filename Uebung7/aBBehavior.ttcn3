@@ -8,17 +8,21 @@ module aBBehavior {
 	import from aBConfig all;
 	import from aBTemplates all;
 
+    /*
+     * Templates um Einträge fürs "Pattern Matching" in den Tests zu erzeugen.
+     * Wussten nicht wie man aus den records das on-the-fly machen kann, ohne den Umweg über templates.
+     */
     template getEntryReply tGetEntryReplyMail(charstring c) := {
-		contact := {email := c}
-	}
+	contact := {email := c}
+    }
         
 //    template getEntryReply tGetEntryReplyPhone(charstring c) := {
 //		contact := {number := c}
 //	}
 	
     template userExists tUserExists(charstring name) := {
-            firstName := name
-        }
+        firstName := name
+    }
 
 
 	group testCases {
