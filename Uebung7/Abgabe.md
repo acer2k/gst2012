@@ -26,33 +26,4 @@ Es ist anzumerken, dass JUnit keinen Ausschluss für die zusätzliche Funktional
 
 ## Aufgabe 2
 
-Nach langem ausprobieren haben wir es dann heute(Mittwoch) morgen noch hinbekommen die Tests zum laufen zu kriegen.
-Aufgrund dieser Zeitknappheit haben wir nicht mehr alle Tests hinbekommen.
-
-### sizeLimit Test
-
-Hier wird leider keine sizeLimitReached Nachricht zurück gesendet.
-Obwohl das Addressbuch schon nach 5 Einträgen voll ist.
-Leider kann ich es nich mehr testen und kann nur noch mutmaßen woran es liegt.
-
-	var userExists response;
-	...
-		[] sp.receive(response) {...}
-		
-Das müsste vermutlich eine Nachricht vom Typ sizeLimitReached sein.
-
-	[] sp.receive {
-		setverdict(fail);
-	}
-	
-Allerdings sollte der Test dann mit `fail` enden und nicht mit `inconic`.
-
-### TC\_getEntry\_valid\_phoneNumber()
-
-Sorry, zu dem bin ich leider nicht mehr gekommen.
-Sollte aber genau so aussehen wie TC\_getEntry\_valid\_Email(), mit dem Unterschied das ein tGetEnrtyReplyNumber erwartet wird.
-Siehe Template Bereich. Das ist auskommentiert weil die Syntax für den Typ PhoneNumber noch nicht korrekt ist.
-
-### Der Test Report
-
-
+In `TC\_getEntry\_valid\_phoneNumber` wird die Telefonnummer reversed zurück gegeben.

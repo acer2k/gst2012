@@ -1,265 +1,286 @@
 /**
- * @desc This module contains the templates for your exercises. There are five excercises, to solve. 
- * If possible do not rename the test cases. But if you want you can of course create new test cases. in addition.
- * 
+ * @desc
+ *     This module contains the templates for your exercises. There are five
+ *     excercises, to solve. If possible do not rename the test cases. But if
+ *     you want you can of course create new test cases. in addition.
  */
 module aBBehavior {
 	import from aB all;
 	import from aBConfig all;
 	import from aBTemplates all;
 
-    /*
-     * Templates um Einträge fürs "Pattern Matching" in den Tests zu erzeugen.
-     * Wussten nicht wie man aus den records das on-the-fly machen kann, ohne den Umweg über templates.
-     */
-    template getEntryReply tGetEntryReplyMail(charstring c) := {
-	contact := {email := c}
-    }
-        
-//    template getEntryReply tGetEntryReplyPhone(charstring c) := {
-//		contact := {number := c}
-//	}
-	
-    template userExists tUserExists(charstring name) := {
-        firstName := name
-    }
+	template getEntryReply tGetEntryReplyMail(charstring c) := {
+		contact := {email := c}
+	}
 
+	template getEntryReply tGetEntryReplyPhone(PhoneNumber n) := {
+		contact := {number := n}
+	}
+
+    template userExists tUserExists(charstring name) := {firstName := name}
 
 	group testCases {
 
-        /**
+		/**
 		 * @desc
-		 *     This test case should check that addEntry works as expected. 
-		 *     This means that no response shall be received within a given period of time
-		 *     A timer shall be used to check this.
-		 *     The verdict should be pass.
+		 *     This test case should check that addEntry works as expected. This
+		 *     means that no response shall be received within a given period of
+		 *     time A timer shall be used to check this. The verdict should be
+		 *     pass.
 		 */
-        testcase TC_addEntry_withTimer () runs on ClientComponent system AddressBookSystem {
-            map(self:sp, system:sp);
-            initialClear();
+		testcase TC_addEntry_withTimer()
+			runs on ClientComponent system AddressBookSystem {
+			map(self:sp, system:sp);
+			initialClear();
 
-            sp.send(tAddEntry(tFirstEntry));
-            // please start a timer
+			sp.send(tAddEntry(tFirstEntry));
+			//     please start a timer
 			t1.start;
-            alt {
-				// 1. Check that you do not receive anything
-				// 2. Until the timer 
+			alt {
+				//     1. Check that you do not receive anything
+				//     2. Until the timer
 				[] sp.receive {
-					setverdict(fail)
+					setverdict(fail);
 				}
 				[] t1.timeout {
-					setverdict(pass)
+					setverdict(pass);
 				}
-            }
-        }		
-		
-        /**
+			}
+		}
+
+		/**
 		 * @desc
 		 *     This test case checks if the System Under Test reports correctly
-		 *     that a user already exists in the database.
-		 *     For this you should 
-		 *     	- first insert a message and then
-		 *      - reinsert the same message and catch the response.
-		 *      Guard all operations with timers
-		 *     The verdict should be pass.
+		 *     that a user already exists in the database. For this you should -
+		 *     first insert a message and then - reinsert the same message and
+		 *     catch the response. Guard all operations with timers The verdict
+		 *     should be pass.
 		 */
-        testcase TC_addEntry_UserExists() runs on ClientComponent system AddressBookSystem {
-            map(self:sp, system:sp);
+		testcase TC_addEntry_UserExists()
+			runs on ClientComponent system AddressBookSystem {
+			map(self:sp, system:sp);
 
-            var userExists response := tUserExists("Karsten");
+			var userExists response := tUserExists("Karsten");
 
-            sp.send(clear_:{});
-            setverdict(pass);
-            log("Send my first message");
-            // Send a message
+			sp.send(clear_:{});
+			setverdict(pass);
+			log("Send my first message");
+			//     Send a message
 			sp.send(tAddEntry(tFirstEntry));
-            
-            // Start a timer 
+
+			//     Start a timer
 			t1.start;
-            alt {
-				// Check for correct behaviour
+			alt {
+				//     Check for correct behaviour
 				[] sp.receive {
-				    setverdict(fail);
+					setverdict(fail);
 				}
 				[] t1.timeout {
-				 	setverdict(pass);
+					setverdict(pass);
 				}
-            }
+			}
 
-            log("Send my second message");
-            // send the same message 
-            sp.send(tAddEntry(tFirstEntry));	
-            // Start a timer
-            t1.start;
+			log("Send my second message");
+			//     send the same message
+			sp.send(tAddEntry(tFirstEntry));
+			//     Start a timer
+			t1.start;
 
-            alt {
-				// Check that the userExist message is received and that the message
-				// has the correct contents
-
+			alt {
+				//     Check that the userExist message is received and that the
+				//     message
+				//     has the correct contents
 				[] sp.receive(response) {
-				    setverdict(pass);
+					setverdict(pass);
 				}
 				[] sp.receive {
-				    setverdict(fail);
+					setverdict(fail);
 				}
 				[] t1.timeout {
-				    setverdict(inconc);
-				    log("timeout reached but expectected userExist Message")
+					setverdict(inconc);
+					log("timeout reached but expectected userExist Message");
 				}
-            }
-            
-            // This method ends with the timeout. We rather expected it to reply with
-            // an userExists message.
-        }
+			}
+		//     This method ends with the timeout. We rather expected it to reply
+		//     with an userExists message.
+		}
 
 
 		/**
-		 * @desc This testcase shall find the maximum size of the addressBook.
-		 * The way to test is could be to insert fresh entrys in a loop and to catch the sizeLimitReached message.
-		 * We assume that the maximum size is below 10.
-		 * The verdict should be pass. 
+		 * @desc
+		 *     This testcase shall find the maximum size of the addressBook. The
+		 *     way to test is could be to insert fresh entrys in a loop and to
+		 *     catch the sizeLimitReached message. We assume that the maximum
+		 *     size is below 10. The verdict should be pass.
 		 */
-		testcase TC_addEntry_sizeLimitReached() runs on ClientComponent system AddressBookSystem {
+		testcase TC_addEntry_sizeLimitReached()
+			runs on ClientComponent system AddressBookSystem {
 			timer tlong := 60.0;
 			map(self:sp, system:sp);
 
 			initialClear();
 
-			var userExists response;
+			
 			var boolean found := false;
 			var boolean longTimeHasPassed := false;
 			var integer i := 0;
 			tlong.start;
 			do {
-			    // here we construct a fresh entry
+                
+                var sizeLimitReached response := tSizeLimitReached(i);
+				//     here we construct a fresh entry
 				var charstring alice := "Alice" & int2str(i);
-				sp.send(tAddEntry(tFlexEntry(SurName:alice, FirstName:alice)));				
-				// Start the timer 
+				sp.send(tAddEntry(tFlexEntry(SurName:alice, FirstName:alice)));
+				//     Start the timer
 				t1.start;
 				alt {
-					// Handle the responses and timers correctly.
+					//     Handle the responses and timers correctly.
 					[] sp.receive(response) {
-					    log (response);
-					    found := true;
+						log(response);
+						found := true;
 					}
 					[] sp.receive {
-					   setverdict(fail);
+					    found := true;
+						setverdict(fail);
 					}
-                    [] tlong.timeout {
-                        longTimeHasPassed := true;
-                    }
-					[] t1.timeout {
-                       
+					[] tlong.timeout {
+						longTimeHasPassed := true;
 					}
-					
+					[] t1.timeout {}
 				}
-				// increment the counter
-				log ("incrementing counter " & int2str(i)); 
-				i := i + 1;
-			} while ( (not found) and (not longTimeHasPassed) );
+				//     increment the counter
+                i := i + 1;
+				log("incrementing counter " & int2str(i));
+			} while ((not found) and (not longTimeHasPassed));
 
-			if ( not found ) {
-			    
-			    log ("Size limit not reached in given time");
-			    
-			    setverdict(fail);
-			
-			} else {    
-                log("Limit is " & int2str(i));
+			if (not found) {
+
+				log("Size limit not reached in given time");
+
+				setverdict(fail);
+			} else {
+				log("Limit is " & int2str(i -1));
 				setverdict(pass);
 			}
 		}
-	
+
 		/**
 		 * @desc
 		 *     This test case tries to receive the contact information of a
-		 *     database entry. The verdict should be pass.
-		 *     
-		 *     1. First we insert the a valid addressbook entry and then
-		 *     2. We search for this entry and compare the email.
+		 *     database entry. The verdict should be pass. 1. First we insert
+		 *     the a valid addressbook entry and then 2. We search for this
+		 *     entry and compare the email.
 		 */
-		testcase TC_getEntry_valid_Email() runs on ClientComponent system AddressBookSystem {
+		testcase TC_getEntry_valid_Email()
+			runs on ClientComponent system AddressBookSystem {
 			map(mtc:sp, system:sp);
 			initialClear();
 
-//			// 1. Insert the addressbook entry safely
-
+			//     // 1. Insert the addressbook entry safely
 			sp.send(tAddEntry(tFirstEntry));
-			
-            t1.start;
-            alt {
-                [] sp.receive {
-                    setverdict(fail)
-                }
-                [] t1.timeout {
-                    setverdict(pass)
-                }
-            }
 
-			// 2. Search for the entry via the getEntry message. Use the surName as the key.
-			
-			sp.send(tGetEntry(tFirstEntry.surName));
-		
-			var charstring mail := tFirstEntry.contact.email;
-            var getEntryReply entry := tGetEntryReplyMail(mail);
-			alt {
-                // Check for the correct responses and timers.
-				[] sp.receive(entry) {
-				    setverdict(pass);
-				    log(entry);
-				}
-				[] t1.timeout {
-				    setverdict(inconc);   
-				}
-			}
-		}
-
-		/**
-		 * @desc This test cases tests that if the contact field is has a phonenumber
-		 * 	the phone number has the correct value stored. 
-		 *  
-		 * The verdict should be pass in case the stored phone number is the correct one.
-		 */
-		testcase TC_getEntry_valid_phoneNumber() runs on ClientComponent system AddressBookSystem {
-			map(mtc:sp, system:sp);
-			initialClear();
-//
-//			// 1. Add a contact with a phone number
-//			
-//			alt {
-//                // Check for the correct responses and timers.
-//			}
-//
-//			// 2. Search for the entry via the getEntry message. Use the surName as the key.
-//			t1.start;
-//			alt {
-//                // Check for the correct responses and timers.
-//				// Pay in particular attention to the phone number content
-//			}
-//		}
-
-	}
-
-	group functions {
-		/**
-		 * @desc precondition to clear initially the database.
-		 */
-		function initialClear() runs on ClientComponent {
-			sp.send(clear_:{});
 			t1.start;
 			alt {
 				[] sp.receive {
-					setverdict(inconc, "Received a message after a clear operation.");
+					setverdict(fail);
 				}
 				[] t1.timeout {
-					setverdict(pass, "Passed the clear operation.");
+					setverdict(pass);
+				}
+			}
+
+			//     2. Search for the entry via the getEntry message. Use the
+			//     surName as the key.
+			sp.send(tGetEntry(tFirstEntry.surName));
+
+			var charstring mail := tFirstEntry.contact.email;
+			var getEntryReply entry := tGetEntryReplyMail(mail);
+			alt {
+				//     Check for the correct responses and timers.
+				[] sp.receive(entry) {
+					setverdict(pass);
+					log(entry);
+				}
+				[] t1.timeout {
+					setverdict(inconc);
 				}
 			}
 		}
 
-	}
-	}
+		/**
+		 * @desc
+		 *     This test cases tests that if the contact field is has a
+		 *     phonenumber the phone number has the correct value stored. The
+		 *     verdict should be pass in case the stored phone number is the
+		 *     correct one.
+		 */
+		testcase TC_getEntry_valid_phoneNumber()
+			runs on ClientComponent system AddressBookSystem {
+			map(mtc:sp, system:sp);
+			initialClear();
 
 
-    
+			//     1. Add a contact with a phone number
+			sp.send(tAddEntry(tSecondEntry));
+
+			t1.start;
+			alt {
+				//     Check for the correct responses and timers.
+				[] sp.receive {
+					setverdict(fail);
+					log("we do not expect a message");
+				}
+				[] t1.timeout {
+					setverdict(pass);
+				}
+			}
+
+
+
+			//     2. Search for the entry via the getEntry message. Use the
+			//     surName as the key.
+			var PhoneNumber number := tSecondEntry.contact.number;
+			var getEntryReply entry := tGetEntryReplyPhone(number);
+
+			sp.send(tGetEntry(tSecondEntry.surName));
+			t1.start;
+			alt {
+				//     Check for the correct responses and timers.
+				[] sp.receive(entry) {
+					setverdict(pass);
+					log(entry);
+				}
+				[] sp.receive {
+				    log("We expected another message");
+				    // fails because phone number array is reversed
+				    setverdict(fail);
+				}
+				[] t1.timeout {
+					setverdict(inconc);
+				}
+			}
+		}
+
+
+
+		group functions {
+			/**
+			 * @desc precondition to clear initially the database.
+			 */
+			function initialClear() runs on ClientComponent  {
+				sp.send(clear_:{});
+				t1.start;
+				alt {
+					[] sp.receive {
+						setverdict
+						(inconc, "Received a message after a clear operation.");
+					}
+					[] t1.timeout {
+						setverdict(pass, "Passed the clear operation.");
+					}
+				}
+			}
+
+		}
+	}
 }
