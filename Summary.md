@@ -61,8 +61,51 @@
 
 ### Komponententest
 
+- Testobjekte: einzelne Softwarebausteine
 - Testumgebung: Treiber/Testtreiber (Aufruf der Dienste des Testobjekts) und/oder Platzhalter/Stubs/Dummies (Simulation der Dienste, die das Testobjekt importiert)
-- Testziele: Funktionalität, Robustheit, Effizienz, (Wartbarkeit)
+- Testziele: Funktionalität, Robustheit, Effizienz, (Wartbarkeit) einzelner Komponenten
 - "Test-first"-Ansatz
 
 ### Integrationstest
+
+- Testobjekte: schrittweise zu größeren Einheiten zusammengesetzte (Integration) Einzelbausteine
+- Testumgebung wiederverwendbar, (neu: Monitore)
+- Testziele: Schnittstellen, Zusammenspiel zwischen Komponenten
+  - ~mögliche Typen des Fehlerzustands: keine oder syntaktisch falsche Daten, unterschiedliche Interpretation übergebener Daten, falscher oder verspäteter Zeitpunkt
+- Integrationsstrategie: Top-down-Integration vs. Bottom-up-Integration vs. Ad-hoc-Integration vs. Big-bang-Integration
+  - Auswahl abhängig von Systemarchitektur, Projektplan, (Testkonzept/Mastertestkonzept), Testmanager
+
+### Systemtest
+
+- Testobjekte: ganzes System
+- Testumgebung: ~Produktivumgebung
+- Testziele:
+  - funktionale Anforderungen (anforderungsbasiertes Testen, geschäftsprozessbasiertes Testen, anwendungsfallbasiertes Testen)
+  - nicht-funktionale Anforderungen (Lasttest, Performanztest, Volumen-/Massentest, Stresstest, ...)
+- (Anforderungen an die Datenqualität: Zeitnähe, Relevanz, Konsistenz, Zuverlässigkeit, Korrektheit, Vollständigkeit)
+  - (Verbesserung der Datenqualität: Datenbereinigung, Datenqualitätsanalyse, dauerhafte Qualitätssicherung)
+
+### Abnahmetest
+
+- vertraglicher Abnahmetest, betrieblicher Abnahmetest, Benutzerabnahmetest, Alpha- und Beta-Test
+- regulatorische Abnahmetests (Gesetze, Standards)
+- Testobjekte: ganzes System
+- Testumgebung: ~Produktivumgebung
+- Testziele: Vertrauen in das System und/oder nicht-funktionale Eigenschaften gewinnen
+
+### Test neuer Produktversionen (Wartungstest)
+
+- Softwarewartung
+  - typische Wartungsanlässe: Modifikation (adaptive, korrektive, perfektive Wartung), Migration, Einzug der Software
+- Wartungstest -- Migration und Einzug
+- Regressionstest (erneuter Test eines bereits getesteten Programms nach dessen Modifikation)
+  - Umfang abstufbar? eigentlich vollständiger Regressionstest, aber zu zeit- und kostenintensiv
+  - Auswahl von Regressionstestfällen: Priorisierung, Einschränkung
+
+### Übersicht über die Testarten
+
+- grundlegende Testarten (auf allen Teststufen anwendbar)
+  - funktionaler Test
+  - nicht-funktionaler Test (Performanztest, Lasttest, Stresstest, ...)
+  - strukturorientierter Test
+  - änderungsorientierter Test (Fehlernachtest, Regressionstest)
