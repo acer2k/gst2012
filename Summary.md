@@ -33,7 +33,12 @@
 - V-Modell
   - Konstruktionsphasen: Anforderungsdefinition <-> funktionalier Systementwurf <-> technischer Systementwurf <-> Komponentenspezifikation <-> Programmierung
   - Teststufen: Programmierung <-> Komponententest <-> Integrationstest <-> Systemtest <-> Abnahmetest
-- Testprozess: (1) Testplanung und Steuerung -> 2, (2) Testanalyse und Testentwurf -> 3, (3) Testrealisierung und Testdurchführung -> 4, (4) Bewertung und Bericht -> (2, 3, 5), (5) Abschluss der Testaktivitäten -> (1, 2)
+- Testprozess:
+  - (1) Testplanung und Steuerung -> (2)
+  - (2) Testanalyse und Testentwurf -> (3)
+  - (3) Testrealisierung und Testdurchführung -> (4)
+  - (4) Bewertung und Bericht -> (2), (3), (5)
+  - (5) Abschluss der Testaktivitäten -> (1), (2)
 
 ### Testfälle, Sollwerte und Testorakel
 
