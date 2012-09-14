@@ -232,3 +232,53 @@
 - Klassifikationsbäume
 - Syntaxtest
 - Zufallstest und Smoke-Test
+
+## Kapitel 5 (dynamischer Test -- White-Box)
+
+### Idee der White-Box Testentwurfsverfahren
+
+- White-Box-Testentwurfsverfahren -- Begriffe
+  - White-Box-Test
+  - White-Box-Testentwurfsverfahren
+- strukturelles Testen von Programmen
+  - kontrollflussbasiert
+  - datenflussbasiert
+  - bedingungsbasiert
+
+### kontrollflussbasierter Test
+
+- Anweisungsüberdeckung
+  -￼Anweisungsüberdeckungsgrad: `(Anzahl durchlaufener Anweisungen / Gesamtzahl Anweisungen) * 100 %`
+- Entscheidungsüberdeckung => Zweigüberdeckung und Anweisungsüberdeckung
+  - Entscheidungsüberdeckungsgrad: `(Anzahl getestete Entscheidungsergebnisse / Gesamtzahl Entscheidungsergebnisse) * 100 %`
+  - Zweigüberdeckungsgrad: `(Anzahl durchlaufener ZWeige / Gesamtzahl Zweige) * 100 %`
+- Grenze-Inneres-Test: jede Schleife wird in mindestens einem Testfall gar nicht, genau einmal und mehr als einmal ausgeführt
+  - Grenze-Inneres-Überdeckungsgrad: `(Anzahl (gi)-getestete Schleifen / Gesamtzahl Schleifen) * 100 %`
+- Pfadüberdeckung (im Kontrollflussgraphen)
+  - Pfadüberdeckungsgrad: `(Anzahl durchlaufene Pfade / Gesamtzahl Pfade) * 100 %`
+
+### datenflussbasierter Test
+
+- definitional use, `def(r)`; computational use, `c-use(m, n)`; predicative use, `p-use(r)`
+
+### Test der Bedingungen
+
+- (einfache) Bedingungsüberdeckung
+  - Bedingungsüberdeckungsgrad: `(Anzahl zu wahr und falsch getesteten atom. A. / Gesamtzahl atomarer Ausdrücke) * 100 %`
+- Mehrfachbedingungsüberdeckung
+  - ...
+- minimal bestimmende Mehrfachbedingungsüberdeckung
+  - ...
+- Achtung: lazy evaluation
+
+(vgl. Übung)
+
+### weitere White-Box Testentwurfsverfahren
+
+- Mächtigkeit der White-Box-Techniken (siehe Kapitel 5 (2), Folie 78)
+- Bewertung der White-Box-Techniken (siehe Kapitel 5 (2), Folie 79)
+
+### erfahrungsbasiertes Testen
+
+- Error guessing
+- exploratives Testen
