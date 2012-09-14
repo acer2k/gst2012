@@ -110,7 +110,7 @@
   - strukturorientierter Test
   - änderungsorientierter Test (Fehlernachtest, Regressionstest)
 
-## Kapitel 4 (Statischer Test)
+## Kapitel 4 (statischer Test)
 
 ### Grundlagen
 
@@ -155,7 +155,80 @@
 - Metriken in der Qualitätssicherung
   - lediglich punktuelle Aussage bezüglich des untersuchten Aspekts
   - erst im Vergleich aussagekräftig
-- zyklomatische Zahl (für Kontrollflussgraphen G = (V, E)): |E| - |V| + 2
+- zyklomatische Zahl (für Kontrollflussgraphen `G = (V, E)`): `|E| - |V| + 2`
   - "Anzahl der linear unabhängigen Pfade im untersuchten Programm"
   - "Hinweis auf Test- und Wartungsaufwand"
   - zyklomatische Zahl > 10 nicht tolerabel
+
+## Kapitel 5 (dynamischer Test -- Black-Box)
+
+### dynamischer Test -- Grundlagen
+
+- statischer Test vs. dynamischer Test (Prüfung des Testobjekts durch Ausführung)
+- Begriffe: dynamischer Test, Testbasis, Testbedingung, Testentwurfsspezifikation, Testfall (Vorbedingungen, Eingabewerte, vorausgesagte Ergebnisse, Nachbedingungen), Testfallspezifikation, Testsuite, Testablaufspezifikation, Testskript, Testausführungsplan, Testlauf, vertikale/horizontale Rückverfolgbarkeit
+- Zusammenhänge (siehe Kapitel 5 (1), Folie 13)
+- Vorgehensweise
+  - Entwerfen von Tests durch ERmittlung von Testbedingungen
+  - Spezifizieren der Testfälle
+  - Spezifizieren der Testablaufspezifikationen
+  - Testausführungsplanung
+- (mehr) Begriffe: Testrahmen, Testumgebung, Platzhalter (stub), (Dummy, Mock, Simulator)
+- Testrahmen (siehe Kapitel 5 (1), Folie 18)
+- (mehr mehr) Begriffe: Testentwurfsverfahren, Eingangskritieren, Ausgangskriterien
+- Testentwurfsverfahren
+  - spezifikationsorientierte Testentwurfsverfahren (Black-Box Test)
+  - strukturorientierte Testentwurfsverfahren (White-Box Test)
+  - erfharungsbasierte Testentwurfsverfahren
+- Black-Box Test vs. White-Box Test
+
+### Idee der Black-Box-Testentwurfsverfahren
+
+- spezifikationsorientierter Test -- Begriffe
+  - funktionaler Test
+  - Funktionalität (Angemessenheit, Richtigkeit, Interoperabilität, Sicherheit und Konformität)
+- spezifikationsorientierte Testfall- und Testdatenermittlung (siehe Kapitel 5 (1), Folie 29)
+  - Äquivalenzklassenbildung
+  - Grenzwertanalyse
+  - zustandsbasierter Test
+  - Entscheidungstabellentest
+  - anwendungsfallbasierter Test
+
+### Äquivalenzklassenbildung
+
+- Zerlegung (Partitionierung) der Definitionsbereiche von Ein- und Ausgaben in Äquivalenzklassen (ÄK)
+- AK-Überdeckung: `(Anzahl getestete ÄK / Gesamtzahl ÄK) * 100 %`
+- (0 wird separat betrachtet?!)
+
+(siehe Kapitel 5 (1), Folien 30--48)
+
+### Grenzwertanalyse
+
+- Grenzwerte sowie die Werte unmittelbar über bzw. unter dem Grenzwert testen
+- Zusammenfallen entsprechender Grenzwerte benachbarter Äquivalenzklassen
+- GW-Überdeckung: `(Anzahl getestete GW / Gesamtzahl GW) * 100 %`
+- (mindestens drei Nachkommastellen?!)
+
+(siehe Kapitel 5 (1), Folien 49--58)
+
+### zustandsbasierter Test
+
+- Zustands-Konformanztest, Zustands-Robustheitstest
+  - Zustandsdiagramm, (erweiterter) Übergangsbaum, Pfade (Funktions-Sequenzen)
+- Z-Überdeckung: `(Anzahl getestete Z / Gesamtzahl Z) * 100 %`
+- ZÜ-Überdeckung: `(Anzahl getestete ZÜ / Gesamtzahl ZÜ) * 100 %`
+
+(vgl. Übung)
+
+### Entscheidungstabellentest
+
+- Vollständigkeit, Redundanzfreiheit, Widerspruchtsfreiheit
+
+(siehe Kapitel 5 (1), Folien 79--86)
+
+### weitere Black-Box-Testentwurfsverfahren
+
+- anwendungsfallbasierter Test (Use Case Test)
+- Ursache-Wirkungsgraph
+- Klassifikationsbäume
+- Syntaxtest
+- Zufallstest und Smoke-Test
