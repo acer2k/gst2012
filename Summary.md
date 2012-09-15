@@ -282,3 +282,94 @@
 
 - Error guessing
 - exploratives Testen
+
+## Kapitel 6 (Testmanagement)
+
+### Organisation von Testteams und Mitarbeiterqualifikationen
+
+- unabhängiges Testen (abstufbar)
+- (Mitarbeiterqualifikationen)
+- (Aufgaben des Testmanagers (Planung, Überwachung und Steuerung), Testers)
+
+### Testplanung und Testkostenschätzung
+
+#### Testplanung
+
+- (Testkonzept)
+- (Aktivitäten der Testplanung)
+- (Testvorgehensweise)
+- Fehlerkosten
+  - direkte vs. indirekte Fehlerkosten
+  - Fehlerkorrekturkosten
+
+#### Testkostenschätzung
+
+- Expertenschätzungen
+- Analogieschätzung
+- Prozentsatzmethode
+
+### Metriken zur Testfortschrittsüberwachung und -steuerung
+
+- Testfortschrittsüberwachung
+  - fehlerbasierte Metriken
+  - testfallbasierte Metriken
+  - testobjektbasierte Metriken
+- Teststatusbericht
+  - Testobjekt(e), Teststufe, Testzyklus-Datum
+  - Testfortschritt
+  - Fehlerstatus
+  - Risiken
+  - Ausblick
+  - Gesamtbewertung
+- (Teststeuerung)
+
+### risikobasierter Test
+
+- "Prioritise tests so that whenever you stop testing you have done the best testing in the time available."
+- Risiko: `Problemeintrittswahrscheinlichkeit * Schaden`
+- Projekt- vs. Produktrisiken
+- (Risikoliste)
+- risikobasierter Testansazu; risikoorientiertes Testen und Risikomanagement
+
+### Abweichungs- und Fehlermanagement
+
+- Testprotokoll
+- Fehlermeldung (allgemein: Abweichungsbericht)
+  - Testumgebung, Identifikation (der Software), Status, Fehlerklasse, Priorität, Reproduzieren und Lokalisieren, Name des Testers
+- Fehlerklassifikation
+  - Fehlerklasse, Fehlerpriorität
+- Fehlerstatus
+
+### Anforderungen an das Konfigurationsmanagement
+
+- Versionsverwaltung
+- Konfigurationsverwaltung
+- Statusverfolgung von Fehlern und Änderungen
+- Konfigurationsaudits
+
+### (Exkurs: Relevante Normen und Standards)
+
+## Kapitel 7 (Testwerkzeuge)
+
+### Typen von Testwerkzeugen
+
+Werkzeugunterstützung für ...
+
+- ... das Management des Testens
+  - Testmanagementwerkzeuge, Anforderungsmanagementwerkzeuge, Fehler- und Abweichungsmanagementwerkezuge, Konfigurationsmanagementwerkzeuge
+- ... den statischen Test
+  - Review-Werkzeuge, statische Analysewerkzeuge, Modellierungswerkzeuge
+- ... die Testspezifikation
+  - Testentwurfswerkzeuge, Testdatengeneratoren und -editoren
+- ... die Testdurchführung und Protokollierung
+  - Testausführungswerkzeuge (Capture & Replay, skriptbasiertes Testen, datengetriebenes Testen, schlüsselwortgetriebenes Testen, Testrahmen/Komponententestrahmen), Testrahmen/Komponententestrahmen, Simulatoren, Vergleichswerkzeuge/Komparatoren, Werkzeuge zur Überdeckungsmessung, Sicherheitsprüfwerkzeuge
+- ... Performanzmessungen und Monitoring
+  - dynamische Analysewerkzeuge, Performanztestwerkzeuge, Lasttestwerkzeuge, Stresstestwerkzeuge, Testmonitore
+- ... spezifische Anwendungsbereiche
+  - Bewertung der Datenqualität, Benutzbarkeitstests, etc.
+
+### (effektive Anwendung von Werkzeugen: potenzieller Nutzen und Risiken)
+
+### Auswahl und Einführung von Testwerkzeugen in eine Organisation
+
+- "Im Vergleich zum Testprozess invertierte 'Reihenfolge' der Aktivitäten, intellektuell anspruchsvolle Aktivitäten immer zuletzt automatisieren."
