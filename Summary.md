@@ -31,7 +31,7 @@
 ### Fundamentaler Testprozess
 
 - V-Modell
-  - Konstruktionsphasen: Anforderungsdefinition <-> funktionalier Systementwurf <-> technischer Systementwurf <-> Komponentenspezifikation <-> Programmierung
+  - Konstruktionsphasen: Anforderungsdefinition <-> funktionaler Systementwurf <-> technischer Systementwurf <-> Komponentenspezifikation <-> Programmierung
   - Teststufen: Programmierung <-> Komponententest <-> Integrationstest <-> Systemtest <-> Abnahmetest
 - Testprozess:
   - (1) Testplanung und Steuerung -> (2)
@@ -57,7 +57,7 @@
 
 ### Testen in Softwareentwicklungsmodellen
 
-- V-Modell, (W-Modell), (iterativ-inkrementelle Entwicklungsmodell)
+- V-Modell, (W-Modell), (iterativ-inkrementelle Entwicklungsmodelle)
 
 ### Komponententest
 
@@ -145,9 +145,9 @@
 ### Metriken
 
 - Ziele: Verstehen, Steuern, Verbessern
-- "Software-Metriken sind Messungen bestimmter Mermale von Software-Produkten, -Projekten und -Prozessen zu deren Bewertung, Planung und Überwachung."
+- "Software-Metriken sind Messungen bestimmter Merkmale von Software-Produkten, -Projekten und -Prozessen zu deren Bewertung, Planung und Überwachung."
 - Maßtypen
-  - Produktmaße für Software-Systeme: Größe, Funktionlität, Komplexität, Bedienbarkeit, Zuverlässigkeit, Wartbarkeit, Übertragbarkeit, Integrierbarkeit
+  - Produktmaße für Software-Systeme: Größe, Funktionalität, Komplexität, Bedienbarkeit, Zuverlässigkeit, Wartbarkeit, Übertragbarkeit, Integrierbarkeit
   - Projekt- bzw. Ressourcenmaße für Personen, Hardware, Software: Anzahl Entwickler, % Overhead, Preis, Leistungsrate, Speicherkapazität, Geschwindigkeit, Genauigkeit, Nutzen
   - Prozessmaße für Software-Entwicklung und -Wartung: Dauer, Aufwände, Kosten, Fehlermeldungen, Änderungsanträge, Anforderungen, Anzahl Releases, Abstand zwischen Releases
   - statische Maße (messen eine Eigenschaft zu einem bestimmten Zeitpunkt)
@@ -168,7 +168,7 @@
 - Begriffe: dynamischer Test, Testbasis, Testbedingung, Testentwurfsspezifikation, Testfall (Vorbedingungen, Eingabewerte, vorausgesagte Ergebnisse, Nachbedingungen), Testfallspezifikation, Testsuite, Testablaufspezifikation, Testskript, Testausführungsplan, Testlauf, vertikale/horizontale Rückverfolgbarkeit
 - Zusammenhänge (siehe Kapitel 5 (1), Folie 13)
 - Vorgehensweise
-  - Entwerfen von Tests durch ERmittlung von Testbedingungen
+  - Entwerfen von Tests durch Ermittlung von Testbedingungen
   - Spezifizieren der Testfälle
   - Spezifizieren der Testablaufspezifikationen
   - Testausführungsplanung
@@ -178,7 +178,7 @@
 - Testentwurfsverfahren
   - spezifikationsorientierte Testentwurfsverfahren (Black-Box Test)
   - strukturorientierte Testentwurfsverfahren (White-Box Test)
-  - erfharungsbasierte Testentwurfsverfahren
+  - erfahrungsbasierte Testentwurfsverfahren
 - Black-Box Test vs. White-Box Test
 
 ### Idee der Black-Box-Testentwurfsverfahren
@@ -221,7 +221,7 @@
 
 ### Entscheidungstabellentest
 
-- Vollständigkeit, Redundanzfreiheit, Widerspruchtsfreiheit
+- Vollständigkeit, Redundanzfreiheit, Widerspruchsfreiheit
 
 (siehe Kapitel 5 (1), Folien 79--86)
 
@@ -251,7 +251,7 @@
   -￼Anweisungsüberdeckungsgrad: `(Anzahl durchlaufener Anweisungen / Gesamtzahl Anweisungen) * 100 %`
 - Entscheidungsüberdeckung => Zweigüberdeckung und Anweisungsüberdeckung
   - Entscheidungsüberdeckungsgrad: `(Anzahl getestete Entscheidungsergebnisse / Gesamtzahl Entscheidungsergebnisse) * 100 %`
-  - Zweigüberdeckungsgrad: `(Anzahl durchlaufener ZWeige / Gesamtzahl Zweige) * 100 %`
+  - Zweigüberdeckungsgrad: `(Anzahl durchlaufener Zweige / Gesamtzahl Zweige) * 100 %`
 - Grenze-Inneres-Test: jede Schleife wird in mindestens einem Testfall gar nicht, genau einmal und mehr als einmal ausgeführt
   - Grenze-Inneres-Überdeckungsgrad: `(Anzahl (gi)-getestete Schleifen / Gesamtzahl Schleifen) * 100 %`
 - Pfadüberdeckung (im Kontrollflussgraphen)
@@ -329,7 +329,7 @@
 - Risiko: `Problemeintrittswahrscheinlichkeit * Schaden`
 - Projekt- vs. Produktrisiken
 - (Risikoliste)
-- risikobasierter Testansazu; risikoorientiertes Testen und Risikomanagement
+- risikobasierter Testansatz; risikoorientiertes Testen und Risikomanagement
 
 ### Abweichungs- und Fehlermanagement
 
